@@ -31,3 +31,14 @@ def test_user_sites_override_and_validate():
     assert len({s.key for s in sites}) == len(sites)
     with pytest.raises(Exception):
         all_sites([{"key": "x", "name": "x", "lat": 0, "lon": 0, "elevation": 0, "tz": "Mars/Olympus"}])
+
+
+def test_predictive_mjd_without_metadata():
+    """astropy < 7 tables carry no 'predictive_mjd' meta: derive it from the row flags."""
+    from astropy.table import Table
+
+    from artairmass.astro_setup import predictive_mjd
+    t = Table({"MJD": [60000.0, 60001.0, 60002.0], "UT1Flag": ["I", "I", "P"]})
+    assert predictive_mjd(t) == 60002.0
+    t.meta["predictive_mjd"] = 60001.5
+    assert predictive_mjd(t) == 60001.5

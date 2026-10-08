@@ -53,6 +53,24 @@ def configure() -> None:
     _configured = True
 
 
+def predictive_mjd(table) -> float:
+    """First MJD whose Earth-orientation values are predictions, not measurements.
+
+    astropy ≥ 7 records this in ``table.meta``; older versions only flag rows ('P')."""
+    meta = getattr(table, "meta", {}) or {}
+    if "predictive_mjd" in meta:
+        return float(meta["predictive_mjd"])
+    mjd = table["MJD"]
+    mjd = getattr(mjd, "value", mjd)
+    for col in ("UT1Flag", "UT1Flag_A", "PolPMFlag", "PolPMFlag_A"):
+        if col in table.colnames:
+            flags = [str(f).strip() for f in table[col]]
+            for k, f in enumerate(flags):
+                if f == "P":
+                    return float(mjd[k])
+    return float(mjd[-1]) - 365.0  # conservative: treat the last year as predicted
+
+
 def _cached_path(url: str) -> str | None:
     try:
         return astropy_data.cache_contents().get(url)
@@ -71,7 +89,7 @@ def _load_cached_iers_if_newer() -> None:
         except Exception as err:  # corrupt cache entry: ignore it
             log.warning("ignoring unreadable cached IERS table %s: %s", path, err)
             continue
-        if cached.meta["predictive_mjd"] > bundled.meta["predictive_mjd"]:
+        if predictive_mjd(cached) > predictive_mjd(bundled):
             iers.IERS_Auto.iers_table = cached
             iers.earth_orientation_table.set(cached)
         return
@@ -109,7 +127,7 @@ class IERSStatus:
 
 def iers_status() -> IERSStatus:
     table = iers.IERS_Auto.open()
-    pred = Time(table.meta["predictive_mjd"], format="mjd")
+    pred = Time(predictive_mjd(table), format="mjd")
     end = Time(float(table["MJD"][-1].value), format="mjd")
     age = float(Time.now().mjd - pred.mjd)
     return IERSStatus(
@@ -137,7 +155,7 @@ def update_data(timeout: float = 20.0) -> str:
                 [iers.IERS_LEAP_SECOND_URL, iers.IETF_LEAP_SECOND_URL])
         except Exception as err:  # leap seconds rarely matter; don't fail the update
             log.warning("leap-second update failed: %s", err)
-        return f"IERS-A updated; predictions start {Time(table.meta['predictive_mjd'], format='mjd').iso[:10]}"
+        return f"IERS-A updated; predictions start {Time(predictive_mjd(table), format='mjd').iso[:10]}"
     finally:
         astropy_data.conf.allow_internet = False
         astropy_data.conf.remote_timeout = old_timeout
