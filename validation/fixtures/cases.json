@@ -1,0 +1,3053 @@
+[
+ {
+  "id": "lco-0",
+  "site": {
+   "key": "lco",
+   "name": "Las Campanas",
+   "lat": -29.0083,
+   "lon": -70.6995,
+   "elevation": 2282.0,
+   "tz": "America/Santiago",
+   "horizon_height": 2282.0,
+   "telescopes": "",
+   "user": false
+  },
+  "jsk_site": [
+   "Las Campanas",
+   "4.7133",
+   "-29.0083",
+   "4.",
+   "-1",
+   "Chilean",
+   "C",
+   "2282.",
+   "2282."
+  ],
+  "local": "2026-04-04 21:30",
+  "jd": 2461135.5208333335,
+  "targets": [
+   {
+    "name": "A1795",
+    "ra": "13 48 52.5",
+    "dec": "26 35 34",
+    "equinox": "2000",
+    "seasonal": true
+   },
+   {
+    "name": "Perseus",
+    "ra": "03 19 48.16",
+    "dec": "41 30 42.1",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "Phoenix_cl",
+    "ra": "23 44 43.9",
+    "dec": "-42 43 12",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "Hydra_A",
+    "ra": "09 18 05.65",
+    "dec": "-12 05 43.9",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "SPole85",
+    "ra": "06 00 00",
+    "dec": "-85 00 00",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "NPole85",
+    "ra": "18 00 00",
+    "dec": "85 00 00",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "SPole89",
+    "ra": "13 00 00",
+    "dec": "-89 10 00",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "3C273_B1950",
+    "ra": "12 26 33.25",
+    "dec": "02 19 43.3",
+    "equinox": "1950",
+    "seasonal": false
+   },
+   {
+    "name": "LowEast",
+    "ra": "14 44 27.57",
+    "dec": "-10 33 58.4",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "LowWest",
+    "ra": "02 23 12.69",
+    "dec": "-20 43 57.3",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "LowNorth",
+    "ra": "09 52 05.66",
+    "dec": "56 42 23.9",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "LowSouth",
+    "ra": "21 32 43.48",
+    "dec": "-68 35 26.8",
+    "equinox": "2000",
+    "seasonal": false
+   }
+  ]
+ },
+ {
+  "id": "lco-1",
+  "site": {
+   "key": "lco",
+   "name": "Las Campanas",
+   "lat": -29.0083,
+   "lon": -70.6995,
+   "elevation": 2282.0,
+   "tz": "America/Santiago",
+   "horizon_height": 2282.0,
+   "telescopes": "",
+   "user": false
+  },
+  "jsk_site": [
+   "Las Campanas",
+   "4.7133",
+   "-29.0083",
+   "4.",
+   "-1",
+   "Chilean",
+   "C",
+   "2282.",
+   "2282."
+  ],
+  "local": "2026-04-05 22:00",
+  "jd": 2461136.5833333335,
+  "targets": [
+   {
+    "name": "A1795",
+    "ra": "13 48 52.5",
+    "dec": "26 35 34",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "Perseus",
+    "ra": "03 19 48.16",
+    "dec": "41 30 42.1",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "Phoenix_cl",
+    "ra": "23 44 43.9",
+    "dec": "-42 43 12",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "Hydra_A",
+    "ra": "09 18 05.65",
+    "dec": "-12 05 43.9",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "SPole85",
+    "ra": "06 00 00",
+    "dec": "-85 00 00",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "NPole85",
+    "ra": "18 00 00",
+    "dec": "85 00 00",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "SPole89",
+    "ra": "13 00 00",
+    "dec": "-89 10 00",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "3C273_B1950",
+    "ra": "12 26 33.25",
+    "dec": "02 19 43.3",
+    "equinox": "1950",
+    "seasonal": false
+   },
+   {
+    "name": "LowEast",
+    "ra": "16 18 37.53",
+    "dec": "-10 36 49.8",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "LowWest",
+    "ra": "03 57 27.45",
+    "dec": "-20 41 17.9",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "LowNorth",
+    "ra": "11 26 36.91",
+    "dec": "56 43 46.0",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "LowSouth",
+    "ra": "23 07 28.73",
+    "dec": "-68 36 55.5",
+    "equinox": "2000",
+    "seasonal": false
+   }
+  ]
+ },
+ {
+  "id": "lco-2",
+  "site": {
+   "key": "lco",
+   "name": "Las Campanas",
+   "lat": -29.0083,
+   "lon": -70.6995,
+   "elevation": 2282.0,
+   "tz": "America/Santiago",
+   "horizon_height": 2282.0,
+   "telescopes": "",
+   "user": false
+  },
+  "jsk_site": [
+   "Las Campanas",
+   "4.7133",
+   "-29.0083",
+   "4.",
+   "-1",
+   "Chilean",
+   "C",
+   "2282.",
+   "2282."
+  ],
+  "local": "2026-09-05 23:00",
+  "jd": 2461289.625,
+  "targets": [
+   {
+    "name": "A1795",
+    "ra": "13 48 52.5",
+    "dec": "26 35 34",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "Perseus",
+    "ra": "03 19 48.16",
+    "dec": "41 30 42.1",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "Phoenix_cl",
+    "ra": "23 44 43.9",
+    "dec": "-42 43 12",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "Hydra_A",
+    "ra": "09 18 05.65",
+    "dec": "-12 05 43.9",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "SPole85",
+    "ra": "06 00 00",
+    "dec": "-85 00 00",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "NPole85",
+    "ra": "18 00 00",
+    "dec": "85 00 00",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "SPole89",
+    "ra": "13 00 00",
+    "dec": "-89 10 00",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "3C273_B1950",
+    "ra": "12 26 33.25",
+    "dec": "02 19 43.3",
+    "equinox": "1950",
+    "seasonal": false
+   },
+   {
+    "name": "LowEast",
+    "ra": "03 22 10.54",
+    "dec": "-10 46 45.7",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "LowWest",
+    "ra": "15 00 27.82",
+    "dec": "-20 30 31.1",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "LowNorth",
+    "ra": "22 30 28.01",
+    "dec": "56 26 45.4",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "LowSouth",
+    "ra": "10 11 54.39",
+    "dec": "-68 20 26.1",
+    "equinox": "2000",
+    "seasonal": false
+   }
+  ]
+ },
+ {
+  "id": "lco-3",
+  "site": {
+   "key": "lco",
+   "name": "Las Campanas",
+   "lat": -29.0083,
+   "lon": -70.6995,
+   "elevation": 2282.0,
+   "tz": "America/Santiago",
+   "horizon_height": 2282.0,
+   "telescopes": "",
+   "user": false
+  },
+  "jsk_site": [
+   "Las Campanas",
+   "4.7133",
+   "-29.0083",
+   "4.",
+   "-1",
+   "Chilean",
+   "C",
+   "2282.",
+   "2282."
+  ],
+  "local": "2026-09-06 21:15",
+  "jd": 2461290.5104166665,
+  "targets": [
+   {
+    "name": "A1795",
+    "ra": "13 48 52.5",
+    "dec": "26 35 34",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "Perseus",
+    "ra": "03 19 48.16",
+    "dec": "41 30 42.1",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "Phoenix_cl",
+    "ra": "23 44 43.9",
+    "dec": "-42 43 12",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "Hydra_A",
+    "ra": "09 18 05.65",
+    "dec": "-12 05 43.9",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "SPole85",
+    "ra": "06 00 00",
+    "dec": "-85 00 00",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "NPole85",
+    "ra": "18 00 00",
+    "dec": "85 00 00",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "SPole89",
+    "ra": "13 00 00",
+    "dec": "-89 10 00",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "3C273_B1950",
+    "ra": "12 26 33.25",
+    "dec": "02 19 43.3",
+    "equinox": "1950",
+    "seasonal": false
+   },
+   {
+    "name": "LowEast",
+    "ra": "00 40 35.25",
+    "dec": "-10 49 48.0",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "LowWest",
+    "ra": "12 19 06.36",
+    "dec": "-20 28 01.9",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "LowNorth",
+    "ra": "19 49 25.45",
+    "dec": "56 30 49.9",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "LowSouth",
+    "ra": "07 31 04.64",
+    "dec": "-68 25 12.2",
+    "equinox": "2000",
+    "seasonal": false
+   }
+  ]
+ },
+ {
+  "id": "lco-4",
+  "site": {
+   "key": "lco",
+   "name": "Las Campanas",
+   "lat": -29.0083,
+   "lon": -70.6995,
+   "elevation": 2282.0,
+   "tz": "America/Santiago",
+   "horizon_height": 2282.0,
+   "telescopes": "",
+   "user": false
+  },
+  "jsk_site": [
+   "Las Campanas",
+   "4.7133",
+   "-29.0083",
+   "4.",
+   "-1",
+   "Chilean",
+   "C",
+   "2282.",
+   "2282."
+  ],
+  "local": "2026-06-21 02:00",
+  "jd": 2461212.75,
+  "targets": [
+   {
+    "name": "A1795",
+    "ra": "13 48 52.5",
+    "dec": "26 35 34",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "Perseus",
+    "ra": "03 19 48.16",
+    "dec": "41 30 42.1",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "Phoenix_cl",
+    "ra": "23 44 43.9",
+    "dec": "-42 43 12",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "Hydra_A",
+    "ra": "09 18 05.65",
+    "dec": "-12 05 43.9",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "SPole85",
+    "ra": "06 00 00",
+    "dec": "-85 00 00",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "NPole85",
+    "ra": "18 00 00",
+    "dec": "85 00 00",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "SPole89",
+    "ra": "13 00 00",
+    "dec": "-89 10 00",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "3C273_B1950",
+    "ra": "12 26 33.25",
+    "dec": "02 19 43.3",
+    "equinox": "1950",
+    "seasonal": false
+   },
+   {
+    "name": "LowEast",
+    "ra": "01 19 03.98",
+    "dec": "-10 49 15.2",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "LowWest",
+    "ra": "12 57 28.56",
+    "dec": "-20 28 08.8",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "LowNorth",
+    "ra": "20 27 45.94",
+    "dec": "56 30 01.4",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "LowSouth",
+    "ra": "08 09 23.97",
+    "dec": "-68 23 27.3",
+    "equinox": "2000",
+    "seasonal": false
+   }
+  ]
+ },
+ {
+  "id": "lco-5",
+  "site": {
+   "key": "lco",
+   "name": "Las Campanas",
+   "lat": -29.0083,
+   "lon": -70.6995,
+   "elevation": 2282.0,
+   "tz": "America/Santiago",
+   "horizon_height": 2282.0,
+   "telescopes": "",
+   "user": false
+  },
+  "jsk_site": [
+   "Las Campanas",
+   "4.7133",
+   "-29.0083",
+   "4.",
+   "-1",
+   "Chilean",
+   "C",
+   "2282.",
+   "2282."
+  ],
+  "local": "2026-12-21 23:30",
+  "jd": 2461396.6041666665,
+  "targets": [
+   {
+    "name": "A1795",
+    "ra": "13 48 52.5",
+    "dec": "26 35 34",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "Perseus",
+    "ra": "03 19 48.16",
+    "dec": "41 30 42.1",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "Phoenix_cl",
+    "ra": "23 44 43.9",
+    "dec": "-42 43 12",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "Hydra_A",
+    "ra": "09 18 05.65",
+    "dec": "-12 05 43.9",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "SPole85",
+    "ra": "06 00 00",
+    "dec": "-85 00 00",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "NPole85",
+    "ra": "18 00 00",
+    "dec": "85 00 00",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "SPole89",
+    "ra": "13 00 00",
+    "dec": "-89 10 00",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "3C273_B1950",
+    "ra": "12 26 33.25",
+    "dec": "02 19 43.3",
+    "equinox": "1950",
+    "seasonal": false
+   },
+   {
+    "name": "LowEast",
+    "ra": "09 53 54.18",
+    "dec": "-10 33 09.4",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "LowWest",
+    "ra": "21 32 14.67",
+    "dec": "-20 44 00.3",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "LowNorth",
+    "ra": "05 00 58.96",
+    "dec": "56 32 39.3",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "LowSouth",
+    "ra": "16 41 31.40",
+    "dec": "-68 25 16.9",
+    "equinox": "2000",
+    "seasonal": false
+   }
+  ]
+ },
+ {
+  "id": "paranal-0",
+  "site": {
+   "key": "paranal",
+   "name": "VLT, Paranal",
+   "lat": -24.625,
+   "lon": -70.40339999999999,
+   "elevation": 1706.0,
+   "tz": "America/Santiago",
+   "horizon_height": 1706.0,
+   "telescopes": "",
+   "user": false
+  },
+  "jsk_site": [
+   "VLT, Paranal",
+   "4.69356",
+   "-24.625",
+   "4.",
+   "-1",
+   "Chilean",
+   "C",
+   "1706.",
+   "1706."
+  ],
+  "local": "2026-03-20 21:00",
+  "jd": 2461120.5,
+  "targets": [
+   {
+    "name": "A1795",
+    "ra": "13 48 52.5",
+    "dec": "26 35 34",
+    "equinox": "2000",
+    "seasonal": true
+   },
+   {
+    "name": "Perseus",
+    "ra": "03 19 48.16",
+    "dec": "41 30 42.1",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "Phoenix_cl",
+    "ra": "23 44 43.9",
+    "dec": "-42 43 12",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "Hydra_A",
+    "ra": "09 18 05.65",
+    "dec": "-12 05 43.9",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "SPole85",
+    "ra": "06 00 00",
+    "dec": "-85 00 00",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "NPole85",
+    "ra": "18 00 00",
+    "dec": "85 00 00",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "SPole89",
+    "ra": "13 00 00",
+    "dec": "-89 10 00",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "3C273_B1950",
+    "ra": "12 26 33.25",
+    "dec": "02 19 43.3",
+    "equinox": "1950",
+    "seasonal": false
+   },
+   {
+    "name": "LowEast",
+    "ra": "13 13 08.60",
+    "dec": "-10 36 32.4",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "LowWest",
+    "ra": "01 01 44.32",
+    "dec": "-20 59 57.2",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "LowNorth",
+    "ra": "08 33 21.11",
+    "dec": "60 48 13.2",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "LowSouth",
+    "ra": "20 17 07.08",
+    "dec": "-72 47 13.1",
+    "equinox": "2000",
+    "seasonal": false
+   }
+  ]
+ },
+ {
+  "id": "paranal-1",
+  "site": {
+   "key": "paranal",
+   "name": "VLT, Paranal",
+   "lat": -24.625,
+   "lon": -70.40339999999999,
+   "elevation": 1706.0,
+   "tz": "America/Santiago",
+   "horizon_height": 1706.0,
+   "telescopes": "",
+   "user": false
+  },
+  "jsk_site": [
+   "VLT, Paranal",
+   "4.69356",
+   "-24.625",
+   "4.",
+   "-1",
+   "Chilean",
+   "C",
+   "1706.",
+   "1706."
+  ],
+  "local": "2026-10-07 22:45",
+  "jd": 2461321.5729166665,
+  "targets": [
+   {
+    "name": "A1795",
+    "ra": "13 48 52.5",
+    "dec": "26 35 34",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "Perseus",
+    "ra": "03 19 48.16",
+    "dec": "41 30 42.1",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "Phoenix_cl",
+    "ra": "23 44 43.9",
+    "dec": "-42 43 12",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "Hydra_A",
+    "ra": "09 18 05.65",
+    "dec": "-12 05 43.9",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "SPole85",
+    "ra": "06 00 00",
+    "dec": "-85 00 00",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "NPole85",
+    "ra": "18 00 00",
+    "dec": "85 00 00",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "SPole89",
+    "ra": "13 00 00",
+    "dec": "-89 10 00",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "3C273_B1950",
+    "ra": "12 26 33.25",
+    "dec": "02 19 43.3",
+    "equinox": "1950",
+    "seasonal": false
+   },
+   {
+    "name": "LowEast",
+    "ra": "04 11 00.06",
+    "dec": "-10 49 26.2",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "LowWest",
+    "ra": "15 59 11.97",
+    "dec": "-20 47 01.5",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "LowNorth",
+    "ra": "23 32 01.86",
+    "dec": "60 33 54.2",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "LowSouth",
+    "ra": "11 16 48.84",
+    "dec": "-72 33 30.0",
+    "equinox": "2000",
+    "seasonal": false
+   }
+  ]
+ },
+ {
+  "id": "maunakea-0",
+  "site": {
+   "key": "maunakea",
+   "name": "Mauna Kea",
+   "lat": 19.8267,
+   "lon": -155.4717,
+   "elevation": 4215.0,
+   "tz": "Pacific/Honolulu",
+   "horizon_height": 4215.0,
+   "telescopes": "",
+   "user": false
+  },
+  "jsk_site": [
+   "Mauna Kea",
+   "10.36478",
+   "19.8267",
+   "10.",
+   "0",
+   "Hawaiian",
+   "H",
+   "4215.",
+   "4215."
+  ],
+  "local": "2026-03-08 20:30",
+  "jd": 2461108.7708333335,
+  "targets": [
+   {
+    "name": "A1795",
+    "ra": "13 48 52.5",
+    "dec": "26 35 34",
+    "equinox": "2000",
+    "seasonal": true
+   },
+   {
+    "name": "Perseus",
+    "ra": "03 19 48.16",
+    "dec": "41 30 42.1",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "Phoenix_cl",
+    "ra": "23 44 43.9",
+    "dec": "-42 43 12",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "Hydra_A",
+    "ra": "09 18 05.65",
+    "dec": "-12 05 43.9",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "SPole85",
+    "ra": "06 00 00",
+    "dec": "-85 00 00",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "NPole85",
+    "ra": "18 00 00",
+    "dec": "85 00 00",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "SPole89",
+    "ra": "13 00 00",
+    "dec": "-89 10 00",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "3C273_B1950",
+    "ra": "12 26 33.25",
+    "dec": "02 19 43.3",
+    "equinox": "1950",
+    "seasonal": false
+   },
+   {
+    "name": "LowEast",
+    "ra": "12 45 44.45",
+    "dec": "-07 51 40.2",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "LowWest",
+    "ra": "02 08 11.09",
+    "dec": "-16 27 32.1",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "LowNorth",
+    "ra": "17 10 44.57",
+    "dec": "70 35 10.2",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "LowSouth",
+    "ra": "06 33 41.25",
+    "dec": "-61 43 00.5",
+    "equinox": "2000",
+    "seasonal": false
+   }
+  ]
+ },
+ {
+  "id": "maunakea-1",
+  "site": {
+   "key": "maunakea",
+   "name": "Mauna Kea",
+   "lat": 19.8267,
+   "lon": -155.4717,
+   "elevation": 4215.0,
+   "tz": "Pacific/Honolulu",
+   "horizon_height": 4215.0,
+   "telescopes": "",
+   "user": false
+  },
+  "jsk_site": [
+   "Mauna Kea",
+   "10.36478",
+   "19.8267",
+   "10.",
+   "0",
+   "Hawaiian",
+   "H",
+   "4215.",
+   "4215."
+  ],
+  "local": "2026-07-15 23:00",
+  "jd": 2461237.875,
+  "targets": [
+   {
+    "name": "A1795",
+    "ra": "13 48 52.5",
+    "dec": "26 35 34",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "Perseus",
+    "ra": "03 19 48.16",
+    "dec": "41 30 42.1",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "Phoenix_cl",
+    "ra": "23 44 43.9",
+    "dec": "-42 43 12",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "Hydra_A",
+    "ra": "09 18 05.65",
+    "dec": "-12 05 43.9",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "SPole85",
+    "ra": "06 00 00",
+    "dec": "-85 00 00",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "NPole85",
+    "ra": "18 00 00",
+    "dec": "85 00 00",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "SPole89",
+    "ra": "13 00 00",
+    "dec": "-89 10 00",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "3C273_B1950",
+    "ra": "12 26 33.25",
+    "dec": "02 19 43.3",
+    "equinox": "1950",
+    "seasonal": false
+   },
+   {
+    "name": "LowEast",
+    "ra": "23 44 44.69",
+    "dec": "-08 09 25.1",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "LowWest",
+    "ra": "13 07 01.18",
+    "dec": "-16 11 35.6",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "LowNorth",
+    "ra": "04 06 40.79",
+    "dec": "70 28 43.4",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "LowSouth",
+    "ra": "17 30 28.35",
+    "dec": "-61 43 08.1",
+    "equinox": "2000",
+    "seasonal": false
+   }
+  ]
+ },
+ {
+  "id": "maunakea-2",
+  "site": {
+   "key": "maunakea",
+   "name": "Mauna Kea",
+   "lat": 19.8267,
+   "lon": -155.4717,
+   "elevation": 4215.0,
+   "tz": "Pacific/Honolulu",
+   "horizon_height": 4215.0,
+   "telescopes": "",
+   "user": false
+  },
+  "jsk_site": [
+   "Mauna Kea",
+   "10.36478",
+   "19.8267",
+   "10.",
+   "0",
+   "Hawaiian",
+   "H",
+   "4215.",
+   "4215."
+  ],
+  "local": "2026-12-01 04:30",
+  "jd": 2461376.1041666665,
+  "targets": [
+   {
+    "name": "A1795",
+    "ra": "13 48 52.5",
+    "dec": "26 35 34",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "Perseus",
+    "ra": "03 19 48.16",
+    "dec": "41 30 42.1",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "Phoenix_cl",
+    "ra": "23 44 43.9",
+    "dec": "-42 43 12",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "Hydra_A",
+    "ra": "09 18 05.65",
+    "dec": "-12 05 43.9",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "SPole85",
+    "ra": "06 00 00",
+    "dec": "-85 00 00",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "NPole85",
+    "ra": "18 00 00",
+    "dec": "85 00 00",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "SPole89",
+    "ra": "13 00 00",
+    "dec": "-89 10 00",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "3C273_B1950",
+    "ra": "12 26 33.25",
+    "dec": "02 19 43.3",
+    "equinox": "1950",
+    "seasonal": false
+   },
+   {
+    "name": "LowEast",
+    "ra": "14 19 41.51",
+    "dec": "-07 53 01.7",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "LowWest",
+    "ra": "03 42 08.86",
+    "dec": "-16 25 25.6",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "LowNorth",
+    "ra": "18 44 48.53",
+    "dec": "70 30 59.3",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "LowSouth",
+    "ra": "08 07 29.84",
+    "dec": "-61 40 02.8",
+    "equinox": "2000",
+    "seasonal": false
+   }
+  ]
+ },
+ {
+  "id": "kpno-0",
+  "site": {
+   "key": "kpno",
+   "name": "Kitt Peak [MDM Obs.]",
+   "lat": 31.9533,
+   "lon": -111.61665,
+   "elevation": 1925.0,
+   "tz": "America/Phoenix",
+   "horizon_height": 700.0,
+   "telescopes": "",
+   "user": false
+  },
+  "jsk_site": [
+   "Kitt Peak [MDM Obs.]",
+   "7.44111",
+   "31.9533",
+   "7.",
+   "0",
+   "Mountain",
+   "M",
+   "1925",
+   "700."
+  ],
+  "local": "2026-03-08 21:00",
+  "jd": 2461108.6666666665,
+  "targets": [
+   {
+    "name": "A1795",
+    "ra": "13 48 52.5",
+    "dec": "26 35 34",
+    "equinox": "2000",
+    "seasonal": true
+   },
+   {
+    "name": "Perseus",
+    "ra": "03 19 48.16",
+    "dec": "41 30 42.1",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "Phoenix_cl",
+    "ra": "23 44 43.9",
+    "dec": "-42 43 12",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "Hydra_A",
+    "ra": "09 18 05.65",
+    "dec": "-12 05 43.9",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "SPole85",
+    "ra": "06 00 00",
+    "dec": "-85 00 00",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "NPole85",
+    "ra": "18 00 00",
+    "dec": "85 00 00",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "SPole89",
+    "ra": "13 00 00",
+    "dec": "-89 10 00",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "3C273_B1950",
+    "ra": "12 26 33.25",
+    "dec": "02 19 43.3",
+    "equinox": "1950",
+    "seasonal": false
+   },
+   {
+    "name": "LowEast",
+    "ra": "13 04 41.37",
+    "dec": "-06 10 32.0",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "LowWest",
+    "ra": "02 45 35.90",
+    "dec": "-13 18 44.3",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "LowNorth",
+    "ra": "18 20 35.87",
+    "dec": "59 33 09.2",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "LowSouth",
+    "ra": "07 09 34.78",
+    "dec": "-49 42 56.4",
+    "equinox": "2000",
+    "seasonal": false
+   }
+  ]
+ },
+ {
+  "id": "kpno-1",
+  "site": {
+   "key": "kpno",
+   "name": "Kitt Peak [MDM Obs.]",
+   "lat": 31.9533,
+   "lon": -111.61665,
+   "elevation": 1925.0,
+   "tz": "America/Phoenix",
+   "horizon_height": 700.0,
+   "telescopes": "",
+   "user": false
+  },
+  "jsk_site": [
+   "Kitt Peak [MDM Obs.]",
+   "7.44111",
+   "31.9533",
+   "7.",
+   "0",
+   "Mountain",
+   "M",
+   "1925",
+   "700."
+  ],
+  "local": "2026-11-01 01:30",
+  "jd": 2461345.8541666665,
+  "targets": [
+   {
+    "name": "A1795",
+    "ra": "13 48 52.5",
+    "dec": "26 35 34",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "Perseus",
+    "ra": "03 19 48.16",
+    "dec": "41 30 42.1",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "Phoenix_cl",
+    "ra": "23 44 43.9",
+    "dec": "-42 43 12",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "Hydra_A",
+    "ra": "09 18 05.65",
+    "dec": "-12 05 43.9",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "SPole85",
+    "ra": "06 00 00",
+    "dec": "-85 00 00",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "NPole85",
+    "ra": "18 00 00",
+    "dec": "85 00 00",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "SPole89",
+    "ra": "13 00 00",
+    "dec": "-89 10 00",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "3C273_B1950",
+    "ra": "12 26 33.25",
+    "dec": "02 19 43.3",
+    "equinox": "1950",
+    "seasonal": false
+   },
+   {
+    "name": "LowEast",
+    "ra": "09 09 52.19",
+    "dec": "-06 12 41.4",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "LowWest",
+    "ra": "22 50 32.30",
+    "dec": "-13 20 52.0",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "LowNorth",
+    "ra": "14 25 19.66",
+    "dec": "59 40 46.8",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "LowSouth",
+    "ra": "03 14 31.53",
+    "dec": "-49 51 52.3",
+    "equinox": "2000",
+    "seasonal": false
+   }
+  ]
+ },
+ {
+  "id": "kpno-2",
+  "site": {
+   "key": "kpno",
+   "name": "Kitt Peak [MDM Obs.]",
+   "lat": 31.9533,
+   "lon": -111.61665,
+   "elevation": 1925.0,
+   "tz": "America/Phoenix",
+   "horizon_height": 700.0,
+   "telescopes": "",
+   "user": false
+  },
+  "jsk_site": [
+   "Kitt Peak [MDM Obs.]",
+   "7.44111",
+   "31.9533",
+   "7.",
+   "0",
+   "Mountain",
+   "M",
+   "1925",
+   "700."
+  ],
+  "local": "2026-06-21 22:00",
+  "jd": 2461213.7083333335,
+  "targets": [
+   {
+    "name": "A1795",
+    "ra": "13 48 52.5",
+    "dec": "26 35 34",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "Perseus",
+    "ra": "03 19 48.16",
+    "dec": "41 30 42.1",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "Phoenix_cl",
+    "ra": "23 44 43.9",
+    "dec": "-42 43 12",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "Hydra_A",
+    "ra": "09 18 05.65",
+    "dec": "-12 05 43.9",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "SPole85",
+    "ra": "06 00 00",
+    "dec": "-85 00 00",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "NPole85",
+    "ra": "18 00 00",
+    "dec": "85 00 00",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "SPole89",
+    "ra": "13 00 00",
+    "dec": "-89 10 00",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "3C273_B1950",
+    "ra": "12 26 33.25",
+    "dec": "02 19 43.3",
+    "equinox": "1950",
+    "seasonal": false
+   },
+   {
+    "name": "LowEast",
+    "ra": "20 58 46.91",
+    "dec": "-06 25 20.1",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "LowWest",
+    "ra": "10 39 40.41",
+    "dec": "-13 03 51.8",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "LowNorth",
+    "ra": "02 13 11.45",
+    "dec": "59 26 14.0",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "LowSouth",
+    "ra": "15 02 32.05",
+    "dec": "-49 39 16.1",
+    "equinox": "2000",
+    "seasonal": false
+   }
+  ]
+ },
+ {
+  "id": "palomar-0",
+  "site": {
+   "key": "palomar",
+   "name": "Palomar Mountain",
+   "lat": 33.35667,
+   "lon": -116.86335,
+   "elevation": 1706.0,
+   "tz": "America/Los_Angeles",
+   "horizon_height": 1706.0,
+   "telescopes": "",
+   "user": false
+  },
+  "jsk_site": [
+   "Palomar Mountain",
+   "7.79089",
+   "33.35667",
+   "8.",
+   "1",
+   "Pacific",
+   "P",
+   "1706.",
+   "1706."
+  ],
+  "local": "2026-03-07 22:00",
+  "jd": 2461107.75,
+  "targets": [
+   {
+    "name": "A1795",
+    "ra": "13 48 52.5",
+    "dec": "26 35 34",
+    "equinox": "2000",
+    "seasonal": true
+   },
+   {
+    "name": "Perseus",
+    "ra": "03 19 48.16",
+    "dec": "41 30 42.1",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "Phoenix_cl",
+    "ra": "23 44 43.9",
+    "dec": "-42 43 12",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "Hydra_A",
+    "ra": "09 18 05.65",
+    "dec": "-12 05 43.9",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "SPole85",
+    "ra": "06 00 00",
+    "dec": "-85 00 00",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "NPole85",
+    "ra": "18 00 00",
+    "dec": "85 00 00",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "SPole89",
+    "ra": "13 00 00",
+    "dec": "-89 10 00",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "3C273_B1950",
+    "ra": "12 26 33.25",
+    "dec": "02 19 43.3",
+    "equinox": "1950",
+    "seasonal": false
+   },
+   {
+    "name": "LowEast",
+    "ra": "14 39 28.14",
+    "dec": "-05 59 18.2",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "LowWest",
+    "ra": "04 22 15.72",
+    "dec": "-12 51 43.3",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "LowNorth",
+    "ra": "19 58 58.22",
+    "dec": "58 10 11.1",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "LowSouth",
+    "ra": "08 45 39.55",
+    "dec": "-48 16 19.7",
+    "equinox": "2000",
+    "seasonal": false
+   }
+  ]
+ },
+ {
+  "id": "palomar-1",
+  "site": {
+   "key": "palomar",
+   "name": "Palomar Mountain",
+   "lat": 33.35667,
+   "lon": -116.86335,
+   "elevation": 1706.0,
+   "tz": "America/Los_Angeles",
+   "horizon_height": 1706.0,
+   "telescopes": "",
+   "user": false
+  },
+  "jsk_site": [
+   "Palomar Mountain",
+   "7.79089",
+   "33.35667",
+   "8.",
+   "1",
+   "Pacific",
+   "P",
+   "1706.",
+   "1706."
+  ],
+  "local": "2026-03-08 22:00",
+  "jd": 2461108.7083333335,
+  "targets": [
+   {
+    "name": "A1795",
+    "ra": "13 48 52.5",
+    "dec": "26 35 34",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "Perseus",
+    "ra": "03 19 48.16",
+    "dec": "41 30 42.1",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "Phoenix_cl",
+    "ra": "23 44 43.9",
+    "dec": "-42 43 12",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "Hydra_A",
+    "ra": "09 18 05.65",
+    "dec": "-12 05 43.9",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "SPole85",
+    "ra": "06 00 00",
+    "dec": "-85 00 00",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "NPole85",
+    "ra": "18 00 00",
+    "dec": "85 00 00",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "SPole89",
+    "ra": "13 00 00",
+    "dec": "-89 10 00",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "3C273_B1950",
+    "ra": "12 26 33.25",
+    "dec": "02 19 43.3",
+    "equinox": "1950",
+    "seasonal": false
+   },
+   {
+    "name": "LowEast",
+    "ra": "13 43 15.36",
+    "dec": "-05 58 09.4",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "LowWest",
+    "ra": "03 26 01.69",
+    "dec": "-12 53 32.7",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "LowNorth",
+    "ra": "19 02 49.60",
+    "dec": "58 12 13.4",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "LowSouth",
+    "ra": "07 49 31.93",
+    "dec": "-48 18 04.3",
+    "equinox": "2000",
+    "seasonal": false
+   }
+  ]
+ },
+ {
+  "id": "palomar-2",
+  "site": {
+   "key": "palomar",
+   "name": "Palomar Mountain",
+   "lat": 33.35667,
+   "lon": -116.86335,
+   "elevation": 1706.0,
+   "tz": "America/Los_Angeles",
+   "horizon_height": 1706.0,
+   "telescopes": "",
+   "user": false
+  },
+  "jsk_site": [
+   "Palomar Mountain",
+   "7.79089",
+   "33.35667",
+   "8.",
+   "1",
+   "Pacific",
+   "P",
+   "1706.",
+   "1706."
+  ],
+  "local": "2026-10-31 23:00",
+  "jd": 2461345.75,
+  "targets": [
+   {
+    "name": "A1795",
+    "ra": "13 48 52.5",
+    "dec": "26 35 34",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "Perseus",
+    "ra": "03 19 48.16",
+    "dec": "41 30 42.1",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "Phoenix_cl",
+    "ra": "23 44 43.9",
+    "dec": "-42 43 12",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "Hydra_A",
+    "ra": "09 18 05.65",
+    "dec": "-12 05 43.9",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "SPole85",
+    "ra": "06 00 00",
+    "dec": "-85 00 00",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "NPole85",
+    "ra": "18 00 00",
+    "dec": "85 00 00",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "SPole89",
+    "ra": "13 00 00",
+    "dec": "-89 10 00",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "3C273_B1950",
+    "ra": "12 26 33.25",
+    "dec": "02 19 43.3",
+    "equinox": "1950",
+    "seasonal": false
+   },
+   {
+    "name": "LowEast",
+    "ra": "06 17 52.33",
+    "dec": "-06 05 46.0",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "LowWest",
+    "ra": "20 00 19.41",
+    "dec": "-12 52 38.2",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "LowNorth",
+    "ra": "11 36 19.92",
+    "dec": "58 23 16.3",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "LowSouth",
+    "ra": "00 23 31.29",
+    "dec": "-48 31 10.3",
+    "equinox": "2000",
+    "seasonal": false
+   }
+  ]
+ },
+ {
+  "id": "palomar-3",
+  "site": {
+   "key": "palomar",
+   "name": "Palomar Mountain",
+   "lat": 33.35667,
+   "lon": -116.86335,
+   "elevation": 1706.0,
+   "tz": "America/Los_Angeles",
+   "horizon_height": 1706.0,
+   "telescopes": "",
+   "user": false
+  },
+  "jsk_site": [
+   "Palomar Mountain",
+   "7.79089",
+   "33.35667",
+   "8.",
+   "1",
+   "Pacific",
+   "P",
+   "1706.",
+   "1706."
+  ],
+  "local": "2026-11-01 23:00",
+  "jd": 2461346.7916666665,
+  "targets": [
+   {
+    "name": "A1795",
+    "ra": "13 48 52.5",
+    "dec": "26 35 34",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "Perseus",
+    "ra": "03 19 48.16",
+    "dec": "41 30 42.1",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "Phoenix_cl",
+    "ra": "23 44 43.9",
+    "dec": "-42 43 12",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "Hydra_A",
+    "ra": "09 18 05.65",
+    "dec": "-12 05 43.9",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "SPole85",
+    "ra": "06 00 00",
+    "dec": "-85 00 00",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "NPole85",
+    "ra": "18 00 00",
+    "dec": "85 00 00",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "SPole89",
+    "ra": "13 00 00",
+    "dec": "-89 10 00",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "3C273_B1950",
+    "ra": "12 26 33.25",
+    "dec": "02 19 43.3",
+    "equinox": "1950",
+    "seasonal": false
+   },
+   {
+    "name": "LowEast",
+    "ra": "07 21 58.80",
+    "dec": "-06 03 18.5",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "LowWest",
+    "ra": "21 04 26.85",
+    "dec": "-12 54 37.8",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "LowNorth",
+    "ra": "12 40 43.07",
+    "dec": "58 23 09.2",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "LowSouth",
+    "ra": "01 27 48.50",
+    "dec": "-48 30 39.0",
+    "equinox": "2000",
+    "seasonal": false
+   }
+  ]
+ },
+ {
+  "id": "aat-0",
+  "site": {
+   "key": "aat",
+   "name": "Anglo-Australian Tel.",
+   "lat": -31.277039,
+   "lon": 149.06608500000002,
+   "elevation": 1149.0,
+   "tz": "Australia/Sydney",
+   "horizon_height": 670.0,
+   "telescopes": "",
+   "user": false
+  },
+  "jsk_site": [
+   "Anglo-Australian Tel.",
+   "-9.937739",
+   "-31.277039",
+   "-10",
+   "-2",
+   "Australian",
+   "A",
+   "1149.",
+   "670."
+  ],
+  "local": "2026-04-04 21:00",
+  "jd": 2461134.9166666665,
+  "targets": [
+   {
+    "name": "A1795",
+    "ra": "13 48 52.5",
+    "dec": "26 35 34",
+    "equinox": "2000",
+    "seasonal": true
+   },
+   {
+    "name": "Perseus",
+    "ra": "03 19 48.16",
+    "dec": "41 30 42.1",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "Phoenix_cl",
+    "ra": "23 44 43.9",
+    "dec": "-42 43 12",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "Hydra_A",
+    "ra": "09 18 05.65",
+    "dec": "-12 05 43.9",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "SPole85",
+    "ra": "06 00 00",
+    "dec": "-85 00 00",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "NPole85",
+    "ra": "18 00 00",
+    "dec": "85 00 00",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "SPole89",
+    "ra": "13 00 00",
+    "dec": "-89 10 00",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "3C273_B1950",
+    "ra": "12 26 33.25",
+    "dec": "02 19 43.3",
+    "equinox": "1950",
+    "seasonal": false
+   },
+   {
+    "name": "LowEast",
+    "ra": "14 52 50.64",
+    "dec": "-10 30 29.4",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "LowWest",
+    "ra": "02 26 30.28",
+    "dec": "-20 33 18.6",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "LowNorth",
+    "ra": "09 54 46.32",
+    "dec": "54 32 52.5",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "LowSouth",
+    "ra": "21 34 36.62",
+    "dec": "-66 22 49.0",
+    "equinox": "2000",
+    "seasonal": false
+   }
+  ]
+ },
+ {
+  "id": "aat-1",
+  "site": {
+   "key": "aat",
+   "name": "Anglo-Australian Tel.",
+   "lat": -31.277039,
+   "lon": 149.06608500000002,
+   "elevation": 1149.0,
+   "tz": "Australia/Sydney",
+   "horizon_height": 670.0,
+   "telescopes": "",
+   "user": false
+  },
+  "jsk_site": [
+   "Anglo-Australian Tel.",
+   "-9.937739",
+   "-31.277039",
+   "-10",
+   "-2",
+   "Australian",
+   "A",
+   "1149.",
+   "670."
+  ],
+  "local": "2026-04-05 21:00",
+  "jd": 2461135.9583333335,
+  "targets": [
+   {
+    "name": "A1795",
+    "ra": "13 48 52.5",
+    "dec": "26 35 34",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "Perseus",
+    "ra": "03 19 48.16",
+    "dec": "41 30 42.1",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "Phoenix_cl",
+    "ra": "23 44 43.9",
+    "dec": "-42 43 12",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "Hydra_A",
+    "ra": "09 18 05.65",
+    "dec": "-12 05 43.9",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "SPole85",
+    "ra": "06 00 00",
+    "dec": "-85 00 00",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "NPole85",
+    "ra": "18 00 00",
+    "dec": "85 00 00",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "SPole89",
+    "ra": "13 00 00",
+    "dec": "-89 10 00",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "3C273_B1950",
+    "ra": "12 26 33.25",
+    "dec": "02 19 43.3",
+    "equinox": "1950",
+    "seasonal": false
+   },
+   {
+    "name": "LowEast",
+    "ra": "15 56 56.06",
+    "dec": "-10 32 23.8",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "LowWest",
+    "ra": "03 30 39.16",
+    "dec": "-20 31 35.0",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "LowNorth",
+    "ra": "10 59 04.96",
+    "dec": "54 33 55.7",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "LowSouth",
+    "ra": "22 39 03.22",
+    "dec": "-66 23 57.5",
+    "equinox": "2000",
+    "seasonal": false
+   }
+  ]
+ },
+ {
+  "id": "aat-2",
+  "site": {
+   "key": "aat",
+   "name": "Anglo-Australian Tel.",
+   "lat": -31.277039,
+   "lon": 149.06608500000002,
+   "elevation": 1149.0,
+   "tz": "Australia/Sydney",
+   "horizon_height": 670.0,
+   "telescopes": "",
+   "user": false
+  },
+  "jsk_site": [
+   "Anglo-Australian Tel.",
+   "-9.937739",
+   "-31.277039",
+   "-10",
+   "-2",
+   "Australian",
+   "A",
+   "1149.",
+   "670."
+  ],
+  "local": "2026-10-03 22:00",
+  "jd": 2461317.0,
+  "targets": [
+   {
+    "name": "A1795",
+    "ra": "13 48 52.5",
+    "dec": "26 35 34",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "Perseus",
+    "ra": "03 19 48.16",
+    "dec": "41 30 42.1",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "Phoenix_cl",
+    "ra": "23 44 43.9",
+    "dec": "-42 43 12",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "Hydra_A",
+    "ra": "09 18 05.65",
+    "dec": "-12 05 43.9",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "SPole85",
+    "ra": "06 00 00",
+    "dec": "-85 00 00",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "NPole85",
+    "ra": "18 00 00",
+    "dec": "85 00 00",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "SPole89",
+    "ra": "13 00 00",
+    "dec": "-89 10 00",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "3C273_B1950",
+    "ra": "12 26 33.25",
+    "dec": "02 19 43.3",
+    "equinox": "1950",
+    "seasonal": false
+   },
+   {
+    "name": "LowEast",
+    "ra": "04 50 53.19",
+    "dec": "-10 40 03.3",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "LowWest",
+    "ra": "16 24 01.13",
+    "dec": "-20 22 36.7",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "LowNorth",
+    "ra": "23 53 05.24",
+    "dec": "54 16 23.4",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "LowSouth",
+    "ra": "11 33 27.64",
+    "dec": "-66 06 50.4",
+    "equinox": "2000",
+    "seasonal": false
+   }
+  ]
+ },
+ {
+  "id": "aat-3",
+  "site": {
+   "key": "aat",
+   "name": "Anglo-Australian Tel.",
+   "lat": -31.277039,
+   "lon": 149.06608500000002,
+   "elevation": 1149.0,
+   "tz": "Australia/Sydney",
+   "horizon_height": 670.0,
+   "telescopes": "",
+   "user": false
+  },
+  "jsk_site": [
+   "Anglo-Australian Tel.",
+   "-9.937739",
+   "-31.277039",
+   "-10",
+   "-2",
+   "Australian",
+   "A",
+   "1149.",
+   "670."
+  ],
+  "local": "2026-10-04 22:00",
+  "jd": 2461317.9583333335,
+  "targets": [
+   {
+    "name": "A1795",
+    "ra": "13 48 52.5",
+    "dec": "26 35 34",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "Perseus",
+    "ra": "03 19 48.16",
+    "dec": "41 30 42.1",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "Phoenix_cl",
+    "ra": "23 44 43.9",
+    "dec": "-42 43 12",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "Hydra_A",
+    "ra": "09 18 05.65",
+    "dec": "-12 05 43.9",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "SPole85",
+    "ra": "06 00 00",
+    "dec": "-85 00 00",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "NPole85",
+    "ra": "18 00 00",
+    "dec": "85 00 00",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "SPole89",
+    "ra": "13 00 00",
+    "dec": "-89 10 00",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "3C273_B1950",
+    "ra": "12 26 33.25",
+    "dec": "02 19 43.3",
+    "equinox": "1950",
+    "seasonal": false
+   },
+   {
+    "name": "LowEast",
+    "ra": "03 54 38.92",
+    "dec": "-10 42 02.5",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "LowWest",
+    "ra": "15 27 49.81",
+    "dec": "-20 20 45.5",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "LowNorth",
+    "ra": "22 57 04.23",
+    "dec": "54 16 41.2",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "LowSouth",
+    "ra": "10 37 33.26",
+    "dec": "-66 07 27.1",
+    "equinox": "2000",
+    "seasonal": false
+   }
+  ]
+ },
+ {
+  "id": "lapalma-0",
+  "site": {
+   "key": "lapalma",
+   "name": "La Palma",
+   "lat": 28.75833,
+   "lon": -17.88,
+   "elevation": 2326.0,
+   "tz": "Atlantic/Canary",
+   "horizon_height": 2326.0,
+   "telescopes": "",
+   "user": false
+  },
+  "jsk_site": [
+   "La Palma",
+   "1.192",
+   "28.75833",
+   "0.",
+   "2",
+   "Spanish",
+   "S",
+   "2326.",
+   "2326."
+  ],
+  "local": "2026-03-29 22:00",
+  "jd": 2461129.375,
+  "targets": [
+   {
+    "name": "A1795",
+    "ra": "13 48 52.5",
+    "dec": "26 35 34",
+    "equinox": "2000",
+    "seasonal": true
+   },
+   {
+    "name": "Perseus",
+    "ra": "03 19 48.16",
+    "dec": "41 30 42.1",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "Phoenix_cl",
+    "ra": "23 44 43.9",
+    "dec": "-42 43 12",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "Hydra_A",
+    "ra": "09 18 05.65",
+    "dec": "-12 05 43.9",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "SPole85",
+    "ra": "06 00 00",
+    "dec": "-85 00 00",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "NPole85",
+    "ra": "18 00 00",
+    "dec": "85 00 00",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "SPole89",
+    "ra": "13 00 00",
+    "dec": "-89 10 00",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "3C273_B1950",
+    "ra": "12 26 33.25",
+    "dec": "02 19 43.3",
+    "equinox": "1950",
+    "seasonal": false
+   },
+   {
+    "name": "LowEast",
+    "ra": "13 42 42.99",
+    "dec": "-06 39 31.5",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "LowWest",
+    "ra": "03 19 13.78",
+    "dec": "-14 10 59.0",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "LowNorth",
+    "ra": "18 48 59.16",
+    "dec": "62 31 01.5",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "LowSouth",
+    "ra": "07 44 00.07",
+    "dec": "-52 51 31.8",
+    "equinox": "2000",
+    "seasonal": false
+   }
+  ]
+ },
+ {
+  "id": "lapalma-1",
+  "site": {
+   "key": "lapalma",
+   "name": "La Palma",
+   "lat": 28.75833,
+   "lon": -17.88,
+   "elevation": 2326.0,
+   "tz": "Atlantic/Canary",
+   "horizon_height": 2326.0,
+   "telescopes": "",
+   "user": false
+  },
+  "jsk_site": [
+   "La Palma",
+   "1.192",
+   "28.75833",
+   "0.",
+   "2",
+   "Spanish",
+   "S",
+   "2326.",
+   "2326."
+  ],
+  "local": "2026-10-25 21:00",
+  "jd": 2461339.375,
+  "targets": [
+   {
+    "name": "A1795",
+    "ra": "13 48 52.5",
+    "dec": "26 35 34",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "Perseus",
+    "ra": "03 19 48.16",
+    "dec": "41 30 42.1",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "Phoenix_cl",
+    "ra": "23 44 43.9",
+    "dec": "-42 43 12",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "Hydra_A",
+    "ra": "09 18 05.65",
+    "dec": "-12 05 43.9",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "SPole85",
+    "ra": "06 00 00",
+    "dec": "-85 00 00",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "NPole85",
+    "ra": "18 00 00",
+    "dec": "85 00 00",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "SPole89",
+    "ra": "13 00 00",
+    "dec": "-89 10 00",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "3C273_B1950",
+    "ra": "12 26 33.25",
+    "dec": "02 19 43.3",
+    "equinox": "1950",
+    "seasonal": false
+   },
+   {
+    "name": "LowEast",
+    "ra": "03 30 42.86",
+    "dec": "-06 53 18.5",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "LowWest",
+    "ra": "17 06 53.10",
+    "dec": "-14 03 16.4",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "LowNorth",
+    "ra": "08 34 52.84",
+    "dec": "62 38 12.7",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "LowSouth",
+    "ra": "21 30 43.25",
+    "dec": "-53 02 31.0",
+    "equinox": "2000",
+    "seasonal": false
+   }
+  ]
+ },
+ {
+  "id": "lapalma-2",
+  "site": {
+   "key": "lapalma",
+   "name": "La Palma",
+   "lat": 28.75833,
+   "lon": -17.88,
+   "elevation": 2326.0,
+   "tz": "Atlantic/Canary",
+   "horizon_height": 2326.0,
+   "telescopes": "",
+   "user": false
+  },
+  "jsk_site": [
+   "La Palma",
+   "1.192",
+   "28.75833",
+   "0.",
+   "2",
+   "Spanish",
+   "S",
+   "2326.",
+   "2326."
+  ],
+  "local": "2026-01-15 03:00",
+  "jd": 2461055.625,
+  "targets": [
+   {
+    "name": "A1795",
+    "ra": "13 48 52.5",
+    "dec": "26 35 34",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "Perseus",
+    "ra": "03 19 48.16",
+    "dec": "41 30 42.1",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "Phoenix_cl",
+    "ra": "23 44 43.9",
+    "dec": "-42 43 12",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "Hydra_A",
+    "ra": "09 18 05.65",
+    "dec": "-12 05 43.9",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "SPole85",
+    "ra": "06 00 00",
+    "dec": "-85 00 00",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "NPole85",
+    "ra": "18 00 00",
+    "dec": "85 00 00",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "SPole89",
+    "ra": "13 00 00",
+    "dec": "-89 10 00",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "3C273_B1950",
+    "ra": "12 26 33.25",
+    "dec": "02 19 43.3",
+    "equinox": "1950",
+    "seasonal": false
+   },
+   {
+    "name": "LowEast",
+    "ra": "14 51 58.33",
+    "dec": "-06 41 09.1",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "LowWest",
+    "ra": "04 28 27.86",
+    "dec": "-14 08 46.3",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "LowNorth",
+    "ra": "19 58 09.10",
+    "dec": "62 28 12.4",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "LowSouth",
+    "ra": "08 53 05.14",
+    "dec": "-52 49 44.8",
+    "equinox": "2000",
+    "seasonal": false
+   }
+  ]
+ },
+ {
+  "id": "dao-0",
+  "site": {
+   "key": "dao",
+   "name": "DAO, Victoria, BC",
+   "lat": 48.52,
+   "lon": -123.41669999999999,
+   "elevation": 74.0,
+   "tz": "America/Vancouver",
+   "horizon_height": 74.0,
+   "telescopes": "",
+   "user": false
+  },
+  "jsk_site": [
+   "DAO, Victoria, BC",
+   "8.22778",
+   "48.52",
+   "8",
+   "1",
+   "Pacific",
+   "P",
+   "74.",
+   "74."
+  ],
+  "local": "2026-06-21 23:30",
+  "jd": 2461213.7708333335,
+  "targets": [
+   {
+    "name": "A1795",
+    "ra": "13 48 52.5",
+    "dec": "26 35 34",
+    "equinox": "2000",
+    "seasonal": true
+   },
+   {
+    "name": "Perseus",
+    "ra": "03 19 48.16",
+    "dec": "41 30 42.1",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "Phoenix_cl",
+    "ra": "23 44 43.9",
+    "dec": "-42 43 12",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "Hydra_A",
+    "ra": "09 18 05.65",
+    "dec": "-12 05 43.9",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "SPole85",
+    "ra": "06 00 00",
+    "dec": "-85 00 00",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "NPole85",
+    "ra": "18 00 00",
+    "dec": "85 00 00",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "SPole89",
+    "ra": "13 00 00",
+    "dec": "-89 10 00",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "3C273_B1950",
+    "ra": "12 26 33.25",
+    "dec": "02 19 43.3",
+    "equinox": "1950",
+    "seasonal": false
+   },
+   {
+    "name": "LowEast",
+    "ra": "21 36 09.24",
+    "dec": "-03 42 04.2",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "LowWest",
+    "ra": "11 34 35.78",
+    "dec": "-07 54 57.1",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "LowNorth",
+    "ra": "03 20 54.87",
+    "dec": "43 35 05.8",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "LowSouth",
+    "ra": "15 52 45.09",
+    "dec": "-33 13 39.2",
+    "equinox": "2000",
+    "seasonal": false
+   }
+  ]
+ },
+ {
+  "id": "dao-1",
+  "site": {
+   "key": "dao",
+   "name": "DAO, Victoria, BC",
+   "lat": 48.52,
+   "lon": -123.41669999999999,
+   "elevation": 74.0,
+   "tz": "America/Vancouver",
+   "horizon_height": 74.0,
+   "telescopes": "",
+   "user": false
+  },
+  "jsk_site": [
+   "DAO, Victoria, BC",
+   "8.22778",
+   "48.52",
+   "8",
+   "1",
+   "Pacific",
+   "P",
+   "74.",
+   "74."
+  ],
+  "local": "2026-12-21 20:00",
+  "jd": 2461396.6666666665,
+  "targets": [
+   {
+    "name": "A1795",
+    "ra": "13 48 52.5",
+    "dec": "26 35 34",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "Perseus",
+    "ra": "03 19 48.16",
+    "dec": "41 30 42.1",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "Phoenix_cl",
+    "ra": "23 44 43.9",
+    "dec": "-42 43 12",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "Hydra_A",
+    "ra": "09 18 05.65",
+    "dec": "-12 05 43.9",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "SPole85",
+    "ra": "06 00 00",
+    "dec": "-85 00 00",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "NPole85",
+    "ra": "18 00 00",
+    "dec": "85 00 00",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "SPole89",
+    "ra": "13 00 00",
+    "dec": "-89 10 00",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "3C273_B1950",
+    "ra": "12 26 33.25",
+    "dec": "02 19 43.3",
+    "equinox": "1950",
+    "seasonal": false
+   },
+   {
+    "name": "LowEast",
+    "ra": "07 07 15.55",
+    "dec": "-03 32 22.5",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "LowWest",
+    "ra": "21 05 35.70",
+    "dec": "-08 10 18.0",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "LowNorth",
+    "ra": "12 52 30.60",
+    "dec": "43 49 48.0",
+    "equinox": "2000",
+    "seasonal": false
+   },
+   {
+    "name": "LowSouth",
+    "ra": "01 24 17.27",
+    "dec": "-33 26 50.3",
+    "equinox": "2000",
+    "seasonal": false
+   }
+  ]
+ }
+]

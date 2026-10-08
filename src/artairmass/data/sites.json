@@ -1,0 +1,425 @@
+{
+ "_comment": "Built-in sites. lon east-positive degrees; elevation m above sea level; horizon_height = height above the horizon-forming terrain (m) used for the horizon dip in rise/set times (0 = standard -0.833 deg). Coordinates are good to ~100 m.",
+ "sites": [
+  {
+   "key": "lco",
+   "name": "Las Campanas Observatory",
+   "telescopes": "Magellan, du Pont, Swope",
+   "lat": -29.0146,
+   "lon": -70.6926,
+   "elevation": 2380,
+   "tz": "America/Santiago",
+   "horizon_height": 0.0
+  },
+  {
+   "key": "pachon",
+   "name": "Cerro Pachón",
+   "telescopes": "Gemini South, SOAR, Rubin",
+   "lat": -30.2407,
+   "lon": -70.7366,
+   "elevation": 2722,
+   "tz": "America/Santiago",
+   "horizon_height": 0.0
+  },
+  {
+   "key": "ctio",
+   "name": "Cerro Tololo (CTIO)",
+   "telescopes": "Blanco, SMARTS",
+   "lat": -30.1697,
+   "lon": -70.8065,
+   "elevation": 2207,
+   "tz": "America/Santiago",
+   "horizon_height": 0.0
+  },
+  {
+   "key": "paranal",
+   "name": "Cerro Paranal",
+   "telescopes": "VLT, VISTA, VST",
+   "lat": -24.6273,
+   "lon": -70.4042,
+   "elevation": 2635,
+   "tz": "America/Santiago",
+   "horizon_height": 0.0
+  },
+  {
+   "key": "armazones",
+   "name": "Cerro Armazones",
+   "telescopes": "ELT",
+   "lat": -24.5893,
+   "lon": -70.1922,
+   "elevation": 3046,
+   "tz": "America/Santiago",
+   "horizon_height": 0.0
+  },
+  {
+   "key": "lasilla",
+   "name": "La Silla Observatory",
+   "telescopes": "ESO 3.6m, NTT",
+   "lat": -29.2567,
+   "lon": -70.73,
+   "elevation": 2400,
+   "tz": "America/Santiago",
+   "horizon_height": 0.0
+  },
+  {
+   "key": "alma",
+   "name": "Chajnantor (ALMA)",
+   "telescopes": "ALMA, APEX",
+   "lat": -23.0229,
+   "lon": -67.7552,
+   "elevation": 5058,
+   "tz": "America/Santiago",
+   "horizon_height": 0.0
+  },
+  {
+   "key": "atca",
+   "name": "Narrabri (ATCA)",
+   "telescopes": "Australia Telescope Compact Array",
+   "lat": -30.3128,
+   "lon": 149.5502,
+   "elevation": 237,
+   "tz": "Australia/Sydney",
+   "horizon_height": 0.0
+  },
+  {
+   "key": "parkes",
+   "name": "Parkes (Murriyang)",
+   "telescopes": "Parkes 64m",
+   "lat": -32.9984,
+   "lon": 148.2635,
+   "elevation": 415,
+   "tz": "Australia/Sydney",
+   "horizon_height": 0.0
+  },
+  {
+   "key": "sso",
+   "name": "Siding Spring Observatory",
+   "telescopes": "AAT, SkyMapper",
+   "lat": -31.277,
+   "lon": 149.0661,
+   "elevation": 1164,
+   "tz": "Australia/Sydney",
+   "horizon_height": 0.0
+  },
+  {
+   "key": "mro",
+   "name": "Murchison Radio-astronomy Obs.",
+   "telescopes": "ASKAP, MWA",
+   "lat": -26.6969,
+   "lon": 116.6314,
+   "elevation": 361,
+   "tz": "Australia/Perth",
+   "horizon_height": 0.0
+  },
+  {
+   "key": "salt",
+   "name": "Sutherland (SAAO)",
+   "telescopes": "SALT, SAAO 1.9m",
+   "lat": -32.3758,
+   "lon": 20.8107,
+   "elevation": 1798,
+   "tz": "Africa/Johannesburg",
+   "horizon_height": 0.0
+  },
+  {
+   "key": "meerkat",
+   "name": "MeerKAT site",
+   "telescopes": "MeerKAT, SKA-Mid",
+   "lat": -30.713,
+   "lon": 21.443,
+   "elevation": 1038,
+   "tz": "Africa/Johannesburg",
+   "horizon_height": 0.0
+  },
+  {
+   "key": "maunakea",
+   "name": "Mauna Kea",
+   "telescopes": "Keck, Subaru, Gemini North, CFHT, JCMT, SMA",
+   "lat": 19.826,
+   "lon": -155.472,
+   "elevation": 4160,
+   "tz": "Pacific/Honolulu",
+   "horizon_height": 0.0
+  },
+  {
+   "key": "haleakala",
+   "name": "Haleakalā",
+   "telescopes": "DKIST, Pan-STARRS",
+   "lat": 20.7083,
+   "lon": -156.2569,
+   "elevation": 3055,
+   "tz": "Pacific/Honolulu",
+   "horizon_height": 0.0
+  },
+  {
+   "key": "kpno",
+   "name": "Kitt Peak (KPNO)",
+   "telescopes": "Mayall, WIYN, MDM",
+   "lat": 31.9639,
+   "lon": -111.5997,
+   "elevation": 2120,
+   "tz": "America/Phoenix",
+   "horizon_height": 0.0
+  },
+  {
+   "key": "mmt",
+   "name": "Mt Hopkins (FLWO)",
+   "telescopes": "MMT, Tillinghast",
+   "lat": 31.6888,
+   "lon": -110.8851,
+   "elevation": 2608,
+   "tz": "America/Phoenix",
+   "horizon_height": 0.0
+  },
+  {
+   "key": "lbt",
+   "name": "Mt Graham",
+   "telescopes": "LBT, VATT, SMT",
+   "lat": 32.7013,
+   "lon": -109.8891,
+   "elevation": 3221,
+   "tz": "America/Phoenix",
+   "horizon_height": 0.0
+  },
+  {
+   "key": "ldt",
+   "name": "Lowell (Happy Jack)",
+   "telescopes": "Lowell Discovery Telescope",
+   "lat": 34.7444,
+   "lon": -111.4222,
+   "elevation": 2360,
+   "tz": "America/Phoenix",
+   "horizon_height": 0.0
+  },
+  {
+   "key": "palomar",
+   "name": "Palomar Observatory",
+   "telescopes": "Hale 200-inch, ZTF",
+   "lat": 33.3563,
+   "lon": -116.8649,
+   "elevation": 1712,
+   "tz": "America/Los_Angeles",
+   "horizon_height": 0.0
+  },
+  {
+   "key": "lick",
+   "name": "Lick Observatory",
+   "telescopes": "Shane 3m",
+   "lat": 37.3414,
+   "lon": -121.6428,
+   "elevation": 1283,
+   "tz": "America/Los_Angeles",
+   "horizon_height": 0.0
+  },
+  {
+   "key": "mtwilson",
+   "name": "Mt Wilson",
+   "telescopes": "Hooker 100-inch, CHARA",
+   "lat": 34.2247,
+   "lon": -118.0572,
+   "elevation": 1742,
+   "tz": "America/Los_Angeles",
+   "horizon_height": 0.0
+  },
+  {
+   "key": "mcdonald",
+   "name": "McDonald Observatory",
+   "telescopes": "HET, Harlan J. Smith",
+   "lat": 30.6716,
+   "lon": -104.0217,
+   "elevation": 2075,
+   "tz": "America/Chicago",
+   "horizon_height": 0.0
+  },
+  {
+   "key": "apo",
+   "name": "Apache Point Observatory",
+   "telescopes": "ARC 3.5m, SDSS",
+   "lat": 32.7803,
+   "lon": -105.8203,
+   "elevation": 2788,
+   "tz": "America/Denver",
+   "horizon_height": 0.0
+  },
+  {
+   "key": "vla",
+   "name": "VLA (Plains of San Agustin)",
+   "telescopes": "Karl G. Jansky VLA",
+   "lat": 34.0788,
+   "lon": -107.6183,
+   "elevation": 2124,
+   "tz": "America/Denver",
+   "horizon_height": 0.0
+  },
+  {
+   "key": "gbt",
+   "name": "Green Bank Observatory",
+   "telescopes": "GBT",
+   "lat": 38.4331,
+   "lon": -79.8398,
+   "elevation": 824,
+   "tz": "America/New_York",
+   "horizon_height": 0.0
+  },
+  {
+   "key": "spm",
+   "name": "San Pedro Mártir",
+   "telescopes": "OAN-SPM 2.1m",
+   "lat": 31.0444,
+   "lon": -115.4642,
+   "elevation": 2800,
+   "tz": "America/Tijuana",
+   "horizon_height": 0.0
+  },
+  {
+   "key": "lmt",
+   "name": "Sierra Negra",
+   "telescopes": "LMT",
+   "lat": 18.9858,
+   "lon": -97.3147,
+   "elevation": 4600,
+   "tz": "America/Mexico_City",
+   "horizon_height": 0.0
+  },
+  {
+   "key": "mtmegantic",
+   "name": "Mont Mégantic",
+   "telescopes": "OMM 1.6m",
+   "lat": 45.455,
+   "lon": -71.1527,
+   "elevation": 1114,
+   "tz": "America/Toronto",
+   "horizon_height": 0.0
+  },
+  {
+   "key": "dao",
+   "name": "DAO Victoria",
+   "telescopes": "Plaskett 1.8m",
+   "lat": 48.5197,
+   "lon": -123.4167,
+   "elevation": 229,
+   "tz": "America/Vancouver",
+   "horizon_height": 0.0
+  },
+  {
+   "key": "orm",
+   "name": "Roque de los Muchachos",
+   "telescopes": "GTC, WHT, INT, TNG, NOT, LST",
+   "lat": 28.7606,
+   "lon": -17.8816,
+   "elevation": 2326,
+   "tz": "Atlantic/Canary",
+   "horizon_height": 0.0
+  },
+  {
+   "key": "teide",
+   "name": "Teide Observatory",
+   "telescopes": "TTT, Teide solar",
+   "lat": 28.3008,
+   "lon": -16.5122,
+   "elevation": 2390,
+   "tz": "Atlantic/Canary",
+   "horizon_height": 0.0
+  },
+  {
+   "key": "calaralto",
+   "name": "Calar Alto",
+   "telescopes": "CAHA 3.5m",
+   "lat": 37.2236,
+   "lon": -2.5463,
+   "elevation": 2168,
+   "tz": "Europe/Madrid",
+   "horizon_height": 0.0
+  },
+  {
+   "key": "iram30m",
+   "name": "Pico Veleta",
+   "telescopes": "IRAM 30m",
+   "lat": 37.0661,
+   "lon": -3.3926,
+   "elevation": 2850,
+   "tz": "Europe/Madrid",
+   "horizon_height": 0.0
+  },
+  {
+   "key": "noema",
+   "name": "Plateau de Bure",
+   "telescopes": "NOEMA",
+   "lat": 44.6339,
+   "lon": 5.9078,
+   "elevation": 2550,
+   "tz": "Europe/Paris",
+   "horizon_height": 0.0
+  },
+  {
+   "key": "ohp",
+   "name": "Haute-Provence",
+   "telescopes": "OHP 1.93m",
+   "lat": 43.9308,
+   "lon": 5.7133,
+   "elevation": 650,
+   "tz": "Europe/Paris",
+   "horizon_height": 0.0
+  },
+  {
+   "key": "effelsberg",
+   "name": "Effelsberg",
+   "telescopes": "Effelsberg 100m",
+   "lat": 50.5247,
+   "lon": 6.8828,
+   "elevation": 369,
+   "tz": "Europe/Berlin",
+   "horizon_height": 0.0
+  },
+  {
+   "key": "hanle",
+   "name": "Hanle (IAO)",
+   "telescopes": "HCT",
+   "lat": 32.7794,
+   "lon": 78.9642,
+   "elevation": 4500,
+   "tz": "Asia/Kolkata",
+   "horizon_height": 0.0
+  },
+  {
+   "key": "devasthal",
+   "name": "Devasthal",
+   "telescopes": "DOT 3.6m",
+   "lat": 29.3611,
+   "lon": 79.6847,
+   "elevation": 2450,
+   "tz": "Asia/Kolkata",
+   "horizon_height": 0.0
+  },
+  {
+   "key": "xinglong",
+   "name": "Xinglong",
+   "telescopes": "LAMOST",
+   "lat": 40.3958,
+   "lon": 117.575,
+   "elevation": 960,
+   "tz": "Asia/Shanghai",
+   "horizon_height": 0.0
+  },
+  {
+   "key": "lulin",
+   "name": "Lulin Observatory",
+   "telescopes": "Lulin 1m",
+   "lat": 23.4686,
+   "lon": 120.8736,
+   "elevation": 2862,
+   "tz": "Asia/Taipei",
+   "horizon_height": 0.0
+  },
+  {
+   "key": "mtjohn",
+   "name": "Mt John",
+   "telescopes": "MOA, Mt John 1.8m",
+   "lat": -43.9867,
+   "lon": 170.465,
+   "elevation": 1029,
+   "tz": "Pacific/Auckland",
+   "horizon_height": 0.0
+  }
+ ]
+}
