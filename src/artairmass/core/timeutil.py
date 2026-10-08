@@ -123,3 +123,19 @@ def format_hms(hours: float, signed: bool = False, decimals: int = 0) -> str:
     if decimals:
         out += f".{frac:0{decimals}d}"
     return out
+
+
+def format_hm(hours: float, signed: bool = False) -> str:
+    """Hours to ``[+-]HH:MM`` rounded to the nearest minute."""
+    if hours is None or not np.isfinite(hours):
+        return "—"
+    return format_hms(round(hours * 60) / 60, signed=signed)[:-3]
+
+
+def hm_local(t: Time, tz: str) -> str:
+    """Local wall-clock HH:MM rounded to the nearest minute."""
+    return to_local(Time(t.jd + 0.5 / 1440, format="jd", scale="utc"), tz).strftime("%H:%M")
+
+
+def hm_utc(t: Time) -> str:
+    return Time(t.jd + 0.5 / 1440, format="jd", scale="utc").datetime.strftime("%H:%M")

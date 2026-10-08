@@ -76,7 +76,8 @@ class Night:
         return (eve if eve is not None else self.start, morn if morn is not None else self.end)
 
 
-def compute_night(site: Site, d: date, model: SkyModel | None = None) -> Night:
+def compute_night(site: Site, d: date, model: SkyModel | None = None,
+                  describe_moon: bool = True) -> Night:
     t0, t1 = night_window(d, site.tz)
     a, b = t0.jd, t1.jd
     if model is None:
@@ -109,10 +110,11 @@ def compute_night(site: Site, d: date, model: SkyModel | None = None) -> Night:
     mev = find_crossings(model.moon_alt, a, b, rs)
     night.moon_events = [(t, "rise" if up else "set") for t, up in mev]
 
-    tm = Time(midnight, format="jd", scale="utc")
-    k, _ = moonmod.illumination(tm, site.location)
-    night.moon_illum = float(k)
-    night.moon_phase = moonmod.phase_description(midnight)
+    if describe_moon:
+        tm = Time(midnight, format="jd", scale="utc")
+        k, _ = moonmod.illumination(tm, site.location)
+        night.moon_illum = float(k)
+        night.moon_phase = moonmod.phase_description(midnight)
     return night
 
 

@@ -13,7 +13,8 @@ from .moon import lunar_phases
 from .night import compute_tracks, make_model
 from .sites import Site
 from .targets import Target
-from .timeutil import SYNODIC_MONTH_D, format_hms, night_of, night_window, to_local
+from .timeutil import (SYNODIC_MONTH_D, format_hm, hm_local, hm_utc, night_of, night_window,
+                       to_local)
 
 
 def _airmass_str(alt: float, am: float) -> str:
@@ -40,12 +41,12 @@ def hourly_table(site: Site, d: date, target: Target, airmass_model: str = "hard
     rows = []
     for k, jd in enumerate(jds):
         t = Time(jd, format="jd", scale="utc")
-        loc = to_local(t, site.tz)
         alt = float(tr.alt[0, k])
         rows.append({
-            "jd": float(jd), "local": loc.strftime("%H:%M"), "local_date": loc.strftime("%a %m-%d"),
-            "ut": t.datetime.strftime("%H:%M"), "lst": format_hms(tr.last_h[k])[:5],
-            "ha": format_hms(tr.ha_h[0, k], signed=True)[:6], "ha_h": float(tr.ha_h[0, k]),
+            "jd": float(jd), "local": hm_local(t, site.tz),
+            "local_date": to_local(Time(jd + 1 / 1440, format="jd"), site.tz).strftime("%a %m-%d"),
+            "ut": hm_utc(t), "lst": format_hm(tr.last_h[k]),
+            "ha": format_hm(tr.ha_h[0, k], signed=True), "ha_h": float(tr.ha_h[0, k]),
             "alt": alt, "airmass": float(tr.airmass[0, k]) if alt > 0 else None,
             "airmass_str": _airmass_str(alt, float(tr.airmass[0, k])),
             "moon_alt": float(tr.moon_alt[k]), "sun_alt": float(tr.sun_alt[k]),
@@ -72,19 +73,20 @@ def seasonal_table(site: Site, t: Time, target: Target, airmass_model: str = "ha
         full = next(q for q, k in phases if k == 2 and q > p)
         rows_in += [("New", p), ("Full", full)]
 
-    model = make_model(site, rows_in[0][1] - 1.5, rows_in[-1][1] + 1.5, [target], knot_hours=1.0)
+    # 2-hour knots: Moon good to ~3″ — ample for this table, and 2× faster than 1 h
+    model = make_model(site, rows_in[0][1] - 1.5, rows_in[-1][1] + 1.5, [target], knot_hours=2.0)
     limits_alt = [alt_for_airmass(x, airmass_model) for x in SEASONAL_LIMITS]
     rows = []
     for label, pjd in rows_in:
         d = night_of(Time(pjd, format="jd", scale="utc"), site.tz)
-        night = compute_night(site, d, model)
+        night = compute_night(site, d, model, describe_moon=False)
         win = night.dark_window(twilight)
         eve, morn = (win if win else (night.night_center, night.night_center))
         when = np.array([eve, night.night_center, morn])
         tr = compute_tracks(site, when, [target], model, airmass_model)
         row = {"moon": label, "phase_jd": pjd, "evening_date": d.isoformat()}
         for k, key in enumerate(("eve", "ctr", "morn")):
-            row[f"ha_{key}"] = format_hms(tr.ha_h[0, k], signed=True)[:6]
+            row[f"ha_{key}"] = format_hm(tr.ha_h[0, k], signed=True)
             row[f"airmass_{key}"] = _airmass_str(float(tr.alt[0, k]), float(tr.airmass[0, k]))
         if win:
             grid = np.arange(win[0], win[1], 1 / 1440.0)
