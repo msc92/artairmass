@@ -74,3 +74,74 @@ def plan_night(site: Site, d: date, targets: list[Target], step_min: float = 2.0
     night = compute_night(site, d, model)
     tracks = compute_tracks(site, night_grid(night, step_min), targets, model, airmass_model)
     return night, tracks
+
+
+# ----------------------------------------------------------------------------- summaries
+def _crossings(jd: np.ndarray, y: np.ndarray, level: float):
+    """Linear-interpolated crossings of y through level: [(jd, rising)]."""
+    d = y - level
+    out = []
+    for k in np.nonzero(np.sign(d[:-1]) * np.sign(d[1:]) < 0)[0]:
+        f = d[k] / (d[k] - d[k + 1])
+        out.append((float(jd[k] + f * (jd[k + 1] - jd[k])), bool(d[k + 1] > d[k])))
+    return out
+
+
+def summarize(night: Night, tr: Tracks, targets: list[Target], limit: float = 2.0,
+              twilight: str = "astronomical", airmass_model: str = "hardie",
+              lat_deg: float | None = None) -> list[dict]:
+    """Per-target night summary: limit crossings, transit, max altitude, dark hours, Moon."""
+    from .airmass import alt_for_airmass
+
+    alt_lim = alt_for_airmass(limit, airmass_model)
+    jd = tr.jd
+    dt_h = float(np.median(np.diff(jd))) * 24.0 if jd.size > 1 else 0.0
+    win = night.dark_window(twilight)
+    dark = (jd >= win[0]) & (jd <= win[1]) if win else np.zeros(jd.size, bool)
+    out = []
+    for i, tg in enumerate(targets):
+        alt = tr.alt[i]
+        ok = (alt > alt_lim) & dark
+        cr = _crossings(jd, alt, alt_lim)
+        rise = next((t for t, up in cr if up), None)
+        set_ = next((t for t, up in cr if not up and (rise is None or t > rise)), None)
+        if set_ is None:
+            set_ = next((t for t, up in cr if not up), None)
+        # transit: HA crossing 0 from east to west within the grid, else extrapolate
+        ha = tr.ha_h[i]
+        tcross = [t for t, up in _crossings(jd, ha, 0.0) if up]
+        if tcross:
+            transit = tcross[0]
+        else:
+            k = int(np.argmin(np.abs(ha)))
+            transit = float(jd[k] - ha[k] / 24.0 / 1.00273790935)
+        if jd[0] <= transit <= jd[-1]:
+            t_alt = float(np.interp(transit, jd, alt))
+        elif lat_deg is not None and not tg.is_body:
+            t_alt = 90.0 - abs(lat_deg - tg.dec)  # meridian altitude (geometric, ICRS dec: ≲ 0.3° off)
+        else:
+            t_alt = None
+        if dark.any():
+            kmax = int(np.argmax(np.where(dark, alt, -99)))
+            max_alt, max_alt_jd = float(alt[kmax]), float(jd[kmax])
+        else:
+            max_alt, max_alt_jd = None, None
+        sep_win = tr.moon_sep[i][ok] if ok.any() else tr.moon_sep[i][dark] if dark.any() else tr.moon_sep[i]
+        moon_up = tr.moon_alt > 0
+        sep_up = tr.moon_sep[i][(ok if ok.any() else dark) & moon_up] if moon_up.any() else np.array([])
+        out.append({
+            "name": tg.name,
+            "rise_jd": rise, "set_jd": set_,
+            "always_above": bool(np.all(alt > alt_lim)), "never_above": bool(np.all(alt <= alt_lim)),
+            "transit_jd": transit, "transit_alt": t_alt,
+            "transit_in_night": bool(night.sunset is not None and night.sunrise is not None
+                                     and night.sunset <= transit <= night.sunrise),
+            "max_alt_dark": max_alt, "max_alt_jd": max_alt_jd,
+            "min_airmass_dark": float(airmass_fn(max_alt, airmass_model)) if max_alt and max_alt > 0 else None,
+            "dark_hours": round(float(ok.sum()) * dt_h, 2),
+            "window_start": float(jd[ok][0]) if ok.any() else None,
+            "window_end": float(jd[ok][-1]) if ok.any() else None,
+            "min_moon_sep": float(np.min(sep_win)) if sep_win.size else None,
+            "min_moon_sep_moon_up": float(np.min(sep_up)) if sep_up.size else None,
+        })
+    return out

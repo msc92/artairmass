@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import math
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
 from importlib import resources
 from pathlib import Path
 from typing import Any
@@ -13,7 +13,7 @@ import numpy as np
 from astropy.coordinates import AltAz, SkyCoord
 from astropy.time import Time
 from fastapi import FastAPI, HTTPException
-from fastapi.responses import FileResponse, JSONResponse
+from fastapi.responses import FileResponse, JSONResponse, Response
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
@@ -21,7 +21,8 @@ from .. import __version__, astro_setup, config
 from ..core import timeutil as tu
 from ..core.almanac import Night, dark_hours
 from ..core.instant import PLANETS, compute_instant
-from ..core.night import plan_night
+from ..core.night import plan_night, summarize
+from ..plots import static as static_plots
 from ..core.sites import Site, all_sites, get_site
 from ..core.sky import reference_arcs, sky_snapshot
 from ..core.tables import hourly_table, seasonal_table
@@ -83,6 +84,14 @@ class NightReq(Common):
     time: str | float = "now"
     targets: list[TargetIn] = Field(default_factory=list)
     step_min: float = 2.0
+    airmass_limit: float = 2.0
+    twilight: str = "astronomical"
+    nights: int = 1               # >1: an observing run starting at `date`
+    # static export options
+    y_max: float = 3.0
+    slots: list[int | None] | None = None
+    mono: bool = False
+    title: str | None = None
 
 
 class SkyReq(Common):
@@ -333,16 +342,80 @@ def create_app() -> FastAPI:
         out["time_info"] = time_info(t, site)
         return clean(out)
 
-    @app.post("/api/night")
-    def night(req: NightReq):
+    def _night_payload(site, d, targets, req: NightReq):
+        n, tr = plan_night(site, d, targets, step_min=req.step_min, airmass_model=req.airmass_model)
+        summ = summarize(n, tr, targets, req.airmass_limit, req.twilight, req.airmass_model, site.lat)
+        ticks = static_plots.night_ticks(site, n, tr.jd[0], tr.jd[-1])
+        return n, tr, summ, ticks
+
+    def _night_request(req: NightReq):
         site = _site(req.site)
         d = date.fromisoformat(req.date) if req.date else tu.night_of(_time(req.time), site.tz)
-        targets = [x.to_target() for x in req.targets]
-        n, tr = plan_night(site, d, targets, step_min=req.step_min, airmass_model=req.airmass_model)
-        return clean({"night": night_json(n, site), "tracks": {
-            "jd": tr.jd, "last_h": tr.last_h, "sun_alt": tr.sun_alt, "moon_alt": tr.moon_alt,
-            "alt": tr.alt, "airmass": tr.airmass, "ha_h": tr.ha_h, "moon_sep": tr.moon_sep,
-            "parallactic": tr.parallactic, "names": [x.name for x in targets]}})
+        if req.twilight not in ("civil", "nautical", "astronomical"):
+            raise HTTPException(422, "twilight must be civil, nautical or astronomical")
+        if not 1.0 < req.airmass_limit <= 10:
+            raise HTTPException(422, "airmass limit must be between 1 and 10")
+        return site, d, [x.to_target() for x in req.targets]
+
+    def _tz_jd(n, site, jd):
+        return None if jd is None else {"jd": jd, "x": (jd - n.midnight) * 24.0,
+                                        "local": tu.hm_local(Time(jd, format="jd"), site.tz),
+                                        "ut": tu.hm_utc(Time(jd, format="jd"))}
+
+    @app.post("/api/night")
+    def night(req: NightReq):
+        site, d, targets = _night_request(req)
+        nights_out = []
+        for k in range(max(1, min(req.nights, 31))):
+            dd = d + timedelta(days=k)
+            n, tr, summ, ticks = _night_payload(site, dd, targets, req)
+            for s_ in summ:
+                for key in ("rise_jd", "set_jd", "transit_jd", "max_alt_jd", "window_start", "window_end"):
+                    s_[key.replace("_jd", "")] = _tz_jd(n, site, s_.pop(key))
+            entry = {"night": night_json(n, site), "summary": summ, "ticks": ticks,
+                     "x": (tr.jd - n.midnight) * 24.0}
+            if req.nights <= 1 or k < 31:
+                entry["tracks"] = {"jd": tr.jd, "last_h": tr.last_h, "sun_alt": tr.sun_alt,
+                                   "moon_alt": tr.moon_alt, "alt": tr.alt, "airmass": tr.airmass,
+                                   "ha_h": tr.ha_h, "moon_sep": tr.moon_sep, "parallactic": tr.parallactic,
+                                   "names": [x.name for x in targets]}
+            nights_out.append(entry)
+        out = nights_out[0] if req.nights <= 1 else {"nights": nights_out}
+        return clean(out)
+
+    @app.post("/api/night/export")
+    def night_export(req: NightReq, format: str = "png"):
+        site, d, targets = _night_request(req)
+        n, tr, summ, ticks = _night_payload(site, d, targets, req)
+        stem = f"airmass_{site.key}_{d.isoformat()}"
+        if format == "csv":
+            import csv as _csv
+            import io as _io
+            buf = _io.StringIO()
+            w = _csv.writer(buf)
+            head = ["utc", "local", "lst_h", "sun_alt", "moon_alt"]
+            for t in targets:
+                head += [f"{t.name}:alt", f"{t.name}:airmass", f"{t.name}:ha_h", f"{t.name}:moon_sep"]
+            w.writerow(head)
+            for k, jd in enumerate(tr.jd):
+                tt = Time(jd, format="jd", scale="utc")
+                row = [tt.isot[:19], tu.to_local(tt, site.tz).strftime("%Y-%m-%d %H:%M:%S"),
+                       f"{tr.last_h[k]:.5f}", f"{tr.sun_alt[k]:.3f}", f"{tr.moon_alt[k]:.3f}"]
+                for i in range(len(targets)):
+                    am = tr.airmass[i, k]
+                    row += [f"{tr.alt[i, k]:.4f}", "" if not np.isfinite(am) else f"{am:.4f}",
+                            f"{tr.ha_h[i, k]:.5f}", f"{tr.moon_sep[i, k]:.3f}"]
+                w.writerow(row)
+            return Response(buf.getvalue(), media_type="text/csv",
+                            headers={"Content-Disposition": f'attachment; filename="{stem}.csv"'})
+        if format not in ("png", "pdf", "svg"):
+            raise HTTPException(422, "format must be png, pdf, svg or csv")
+        fig = static_plots.airmass_figure(site, n, tr, [t.name for t in targets], summ, ticks,
+                                          limit=req.airmass_limit, y_max=req.y_max, airmass_model=req.airmass_model,
+                                          title=req.title, slots=req.slots, mono=req.mono)
+        media = {"png": "image/png", "pdf": "application/pdf", "svg": "image/svg+xml"}[format]
+        return Response(static_plots.render(fig, format), media_type=media,
+                        headers={"Content-Disposition": f'attachment; filename="{stem}.{format}"'})
 
     @app.post("/api/hourly")
     def hourly(req: InstantReq):

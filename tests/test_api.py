@@ -96,3 +96,20 @@ def test_parse_lists_export(client):
     assert "A1795" in jsk and "13 48 52.50" in jsk
     client.delete("/api/lists/run 2026B")
     assert client.get("/api/lists/run 2026B").status_code == 404
+
+
+def test_night_summary_and_exports(client):
+    T = [{"name": "Phoenix", "ra": 356.18, "dec": -42.72}, {"name": "Perseus", "ra": 49.95, "dec": 41.51}]
+    r = client.post("/api/night", json={"site": "lco", "date": "2026-10-07", "targets": T}).json()
+    ph, pe = r["summary"]
+    assert ph["transit_alt"] == pytest.approx(76.3, abs=0.2) and ph["dark_hours"] > 7
+    assert pe["dark_hours"] == 0 and pe["transit_alt"] == pytest.approx(19.5, abs=0.3)
+    assert r["ticks"][0]["local"].endswith(":00")
+    run = client.post("/api/night", json={"site": "lco", "date": "2026-10-07", "targets": T, "nights": 3}).json()
+    assert len(run["nights"]) == 3
+    for fmt, magic in (("png", b"\x89PNG"), ("pdf", b"%PDF"), ("svg", b"<?xml")):
+        x = client.post(f"/api/night/export?format={fmt}", json={"site": "lco", "date": "2026-10-07", "targets": T})
+        assert x.status_code == 200 and x.content.startswith(magic)
+    csv = client.post("/api/night/export?format=csv", json={"site": "lco", "date": "2026-10-07", "targets": T}).text
+    assert csv.splitlines()[0].startswith("utc,local,lst_h,sun_alt,moon_alt,Phoenix:alt")
+    assert client.post("/api/night", json={"site": "lco", "targets": T, "airmass_limit": 0.5}).status_code == 422
