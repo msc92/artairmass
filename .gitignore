@@ -1,0 +1,13 @@
+# Third-party originals kept locally for reference/validation only (not redistributed)
+JSkyCalc-master/
+JSkyCalc-master.zip
+reference/
+tools/
+# Python
+__pycache__/
+*.egg-info/
+.venv/
+.pytest_cache/
+dist/
+build/
+.DS_Store
