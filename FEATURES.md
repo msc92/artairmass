@@ -1,5 +1,9 @@
 # JSkyCalc feature inventory → artairmass
 
+> **Status (v0.1.0): every item below is implemented.** Where the artairmass column says 🔁 or 🌐,
+> the replacement described there is what shipped (IANA zones instead of DST codes; HiPS finder
+> charts + send-to-ds9 instead of the XPA/DSS window). Validation: `validation/VALIDATION.md`.
+
 Source of truth for this inventory: the bundled `usermanual.html` (v1.6, rev. 2016) and the
 CFR-decompiled class files from `JSkyCalc.jar` (`reference/jskycalc-src/`, ~7.9 k lines). Every
 window, control, output field and table column found there is listed below, with notes on the

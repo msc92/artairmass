@@ -47,6 +47,9 @@ def configure() -> None:
     warnings.filterwarnings("ignore", message=".*polar motion.*")
     warnings.filterwarnings("ignore", message=".*IERS.*", category=Warning)
     warnings.filterwarnings("ignore", category=iers.IERSStaleWarning)
+    # Beyond the leap-second table ERFA flags every date as a "dubious year": expected, since
+    # future leap seconds are unknown (≤ 1 s effect); reported once via iers_status().
+    warnings.filterwarnings("ignore", message=".*dubious year.*")
     _configured = True
 
 

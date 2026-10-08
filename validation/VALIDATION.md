@@ -126,3 +126,24 @@ residuals are explained; none indicate a bug on either side.
   Moon, < 3″ for planets; interpolated sidereal time < 1 ms.
 * `tests/test_almanac.py`: Sun rise/set and civil/nautical/astronomical twilights vs astroplan
   within 15 s (astroplan's own grid interpolation limit); polar day/night handled.
+
+## The running application
+
+Beyond the numerical tests, the real app was driven end to end in headless Chromium
+(`scripts/uicheck_full.py`), 15 scenarios, all passing with no browser console errors:
+site search/switch and custom sites; typed times, step forward/back, a sidereal-day step
+(LST unchanged, as it must be), night navigation, live clock; adding targets by coordinates,
+planet name and SIMBAD name; the Now view's coordinate editor; filtering, keyboard
+navigation, hiding and removing targets; list import with name look-up, save, sort, JSkyCalc
+export; the Night plot (altitude/airmass axis, limit, click-to-set-time, PNG/PDF/SVG/CSV
+exports, hourly CSV, multi-night run); the Season view (selected/list, Moon presets, heatmap,
+JSkyCalc table); the sky chart (click select, zoom keys, `h` bright star, `c` cursor target);
+the planet table; every tool; settings persistence; help and all three themes.
+
+Offline behaviour was checked with all non-local network traffic blocked and
+`ARTAIRMASS_OFFLINE=1`: name look-ups and finder images fail with a clear message, everything
+else works. Dates beyond the IERS table (e.g. 2031) compute normally.
+
+Two bugs found by the click-through and fixed: typed times displayed one second early
+(JD float round-off; displays now round to the nearest second), and the sky chart's `c`
+(new target at cursor) read a stale copy of the sky data.

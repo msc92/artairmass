@@ -78,6 +78,8 @@ def _parse_sesame(xml: str, name: str) -> dict:
 
 
 def _fetch(name: str) -> dict:
+    if os.environ.get("ARTAIRMASS_OFFLINE"):
+        raise ConnectionError("offline mode (ARTAIRMASS_OFFLINE is set)")
     q = urllib.parse.quote(name.strip())
     last_err = None
     for url in MIRRORS:

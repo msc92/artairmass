@@ -31,9 +31,11 @@ function fmt(tz, opts) {
   if (!fmtCache.has(key)) fmtCache.set(key, new Intl.DateTimeFormat("en-GB", { timeZone: tz, hourCycle: "h23", ...opts }));
   return fmtCache.get(key);
 }
+// JD floats carry ~10 µs of round-off: round to the nearest second before formatting.
+const roundedDate = (jd) => new Date(Math.round(msFromJd(jd) / 1000) * 1000);
 export function localParts(jd, tz) {
   const parts = {};
-  for (const p of fmt(tz, { year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", second: "2-digit", weekday: "short", timeZoneName: "short" }).formatToParts(new Date(msFromJd(jd))))
+  for (const p of fmt(tz, { year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", second: "2-digit", weekday: "short", timeZoneName: "short" }).formatToParts(roundedDate(jd)))
     parts[p.type] = p.value;
   return parts;
 }
@@ -50,7 +52,7 @@ export function zoneLabel(jd, tz) {
   return z.replace(/^GMT/, "UTC").replace(/^UTC([+-])(\d+)$/, (_, s, h) => `UTC${s === "-" ? "−" : "+"}${h}`);
 }
 export function utcTime(jd, seconds = true) {
-  const d = new Date(msFromJd(jd));
+  const d = roundedDate(jd);
   const s = d.toISOString();
   return seconds ? s.slice(11, 19) : s.slice(11, 16);
 }

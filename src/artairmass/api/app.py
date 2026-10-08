@@ -21,6 +21,7 @@ from .. import __version__, astro_setup, config
 from ..core import timeutil as tu
 from ..core.almanac import Night, dark_hours
 from ..core.besttime import best_time
+from ..core import tools as tools_mod
 from ..core.instant import PLANETS, compute_instant
 from ..core.night import plan_night, summarize
 from ..plots import static as static_plots
@@ -142,6 +143,44 @@ class BestTimeReq(Common):
     moon: str = "bright"          # dark | grey | bright | custom
     max_illum: float | None = None
     min_sep: float = 0.0
+
+
+class ParangReq(Common):
+    time: str | float = "now"
+    start_in_min: float = 0.0
+    dwell_min: float = 60.0
+    current_pa: float | None = None
+    target: TargetIn
+
+
+class ConvertReq(BaseModel):
+    system: str = "equatorial"    # equatorial | galactic | ecliptic
+    a: str                        # RA (any format) / l / lambda
+    b: str                        # Dec / b / beta
+    equinox: str = "2000"
+    time: str | float = "now"
+
+
+class LstReq(Common):
+    targets: list[TargetIn]
+    min_elev: float = 20.0
+    time: str | float = "now"
+
+
+class ElongReq(BaseModel):
+    targets: list[TargetIn]
+    start: str | None = None
+    days: int = 365
+    lo: float = 85.0
+    hi: float = 135.0
+
+
+class Ds9Req(BaseModel):
+    ra: float
+    dec: float
+    name: str = ""
+    survey: str = "dsseso"        # dsseso | dssstsci | none
+    size_arcmin: float = 10.0
 
 
 class SiteIn(BaseModel):
@@ -465,6 +504,64 @@ def create_app() -> FastAPI:
         return clean(best_time(site, targets, start, req.days, req.limit, req.limit_kind, req.twilight,
                                req.moon if req.moon in ("dark", "grey", "bright") else "custom",
                                req.max_illum if req.moon == "custom" else None, req.min_sep, req.airmass_model))
+
+    @app.post("/api/parallactic")
+    def parallactic(req: ParangReq):
+        site = _site(req.site)
+        t0 = Time(_time(req.time).jd + req.start_in_min / 1440.0, format="jd", scale="utc")
+        if not 0 < req.dwell_min <= 24 * 60:
+            raise HTTPException(422, "dwell time must be between 0 and 24 h")
+        return clean(tools_mod.parallactic_plan(site, t0, req.dwell_min, req.target.to_target(), req.current_pa))
+
+    @app.post("/api/convert")
+    def convert(req: ConvertReq):
+        try:
+            if req.system == "equatorial":
+                a, b = parse_ra(req.a).deg, parse_dec(req.b).deg
+            else:
+                a, b = float(req.a), float(req.b)
+                if not -90 <= b <= 90:
+                    raise CoordError("latitude must be within ±90°")
+        except (CoordError, ValueError) as err:
+            raise HTTPException(422, str(err))
+        return clean(tools_mod.convert(req.system, a, b, req.equinox, _time(req.time)))
+
+    @app.post("/api/lst")
+    def lst(req: LstReq):
+        site = _site(req.site)
+        targets = [t.to_target() for t in req.targets if not t.body]
+        if not targets:
+            raise HTTPException(422, "add at least one fixed target")
+        return clean({"rows": tools_mod.lst_ranges(site, targets, req.min_elev, _time(req.time))})
+
+    @app.post("/api/elongation")
+    def elongation(req: ElongReq):
+        targets = [t.to_target() for t in req.targets if not t.body]
+        if not targets:
+            raise HTTPException(422, "add at least one fixed target")
+        start = date.fromisoformat(req.start) if req.start else date.today().replace(day=1)
+        return clean({**tools_mod.solar_elongation(targets, start, max(7, min(req.days, 1100)), req.lo, req.hi),
+                      "presets": tools_mod.SPACE_PRESETS})
+
+    @app.post("/api/ds9")
+    def ds9(req: Ds9Req):
+        """Point a running SAOImage ds9 at the target via XPA (and optionally fetch DSS)."""
+        import shutil
+        import subprocess
+        xpaset = shutil.which("xpaset")
+        if not xpaset:
+            raise HTTPException(409, "XPA (xpaset) not found — install ds9 + XPA, or use the in-app finder chart")
+        size = max(1.0, min(req.size_arcmin, 60.0))
+        cmds = []
+        if req.survey in ("dsseso", "dssstsci"):
+            cmds += [[xpaset, "-p", "ds9", req.survey, "size", f"{size}", f"{size}"],
+                     [xpaset, "-p", "ds9", req.survey, "coord", f"{req.ra}", f"{req.dec}", "degrees"]]
+        cmds += [[xpaset, "-p", "ds9", "pan", "to", f"{req.ra}", f"{req.dec}", "wcs", "icrs", "degrees"]]
+        for c in cmds:
+            r = subprocess.run(c, capture_output=True, text=True, timeout=60)
+            if r.returncode != 0:
+                raise HTTPException(409, f"ds9 not responding ({(r.stderr or r.stdout).strip()[:200]}) — is ds9 running?")
+        return {"ok": True}
 
     @app.post("/api/sky")
     def sky(req: SkyReq):

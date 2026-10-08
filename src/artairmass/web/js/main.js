@@ -9,6 +9,7 @@ import { SkyView } from "./components/sky.js";
 import { PlanetsView } from "./components/planets.js";
 import { NightView } from "./components/night.js";
 import { SeasonView } from "./components/season.js";
+import { ToolsView } from "./components/tools.js";
 import { Dialogs } from "./components/dialogs.js";
 
 const VIEWS = [
@@ -71,7 +72,7 @@ function App() {
       },
       setCoordsAtAltAz: async (alt, az) => {
         const site = S().sites.find((x) => x.key === S().siteKey);
-        if (!site || !sky) return;
+        if (!site || !skyRef.current) return;
         const d2r = Math.PI / 180, lat = site.lat * d2r, a = alt * d2r, z = az * d2r;
         const dec = Math.asin(Math.sin(lat) * Math.sin(a) + Math.cos(lat) * Math.cos(a) * Math.cos(z));
         const ha = Math.atan2(-Math.sin(z) * Math.cos(a), Math.cos(lat) * Math.sin(a) - Math.sin(lat) * Math.cos(a) * Math.cos(z));
@@ -276,7 +277,7 @@ function App() {
             ${state.view === "planets" && html`<${PlanetsView}/>`}
             ${state.view === "night" && html`<${NightView}/>`}
             ${state.view === "season" && html`<${SeasonView}/>`}
-            ${["tools"].includes(state.view) && html`<div class="placeholder">${VIEWS.find((v) => v[0] === state.view)[1]} view — coming in a later stage.</div>`}
+            ${state.view === "tools" && html`<${ToolsView}/>`}
           </div>
         </main>
       </div>
