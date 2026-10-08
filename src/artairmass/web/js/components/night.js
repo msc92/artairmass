@@ -5,7 +5,7 @@ import { Store, targetPayload, DASHES } from "../store.js";
 import { api } from "../api.js";
 import { fix, hm, nightOf, airmassLevel, addDays, localTime } from "../format.js";
 
-const css = (v) => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+export const css = (v) => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
 const ALT_TICKS = [90, 60, 50, 40, 30, 25, 20, 15, 10];
 const AM_TICKS = [1.0, 1.1, 1.2, 1.3, 1.5, 1.75, 2.0, 2.5, 3.0, 4.0];
 
@@ -223,7 +223,7 @@ function buildFigure(d, targets, prefs, state, opts = {}) {
 const zoneText = (z) => (z && /^[+-]\d\d$/.test(z) ? `UTC${z[0] === "-" ? "−" : "+"}${+z.slice(1)}` : z || "");
 const escapeHtml = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 
-function PlotlyChart({ fig, onClickX, onLegend, compact }) {
+export function PlotlyChart({ fig, onClickX, onLegend, compact }) {
   const ref = useRef();
   useEffect(() => {
     const el = ref.current;

@@ -20,6 +20,7 @@ from pydantic import BaseModel, Field
 from .. import __version__, astro_setup, config
 from ..core import timeutil as tu
 from ..core.almanac import Night, dark_hours
+from ..core.besttime import best_time
 from ..core.instant import PLANETS, compute_instant
 from ..core.night import plan_night, summarize
 from ..plots import static as static_plots
@@ -129,6 +130,18 @@ class ListReq(BaseModel):
 class ExportReq(BaseModel):
     targets: list[TargetIn]
     format: str = "csv"            # csv | jskycalc
+
+
+class BestTimeReq(Common):
+    targets: list[TargetIn]
+    start: str | None = None      # YYYY-MM-DD; default: first of the current month
+    days: int = 365
+    limit: float = 2.0
+    limit_kind: str = "airmass"   # airmass | altitude
+    twilight: str = "astronomical"
+    moon: str = "bright"          # dark | grey | bright | custom
+    max_illum: float | None = None
+    min_sep: float = 0.0
 
 
 class SiteIn(BaseModel):
@@ -431,6 +444,27 @@ def create_app() -> FastAPI:
         if not req.target or req.target.body:
             raise HTTPException(422, "seasonal table needs a fixed (non-solar-system) target")
         return clean({"rows": seasonal_table(site, t, req.target.to_target(), req.airmass_model)})
+
+    @app.post("/api/besttime")
+    def besttime(req: BestTimeReq):
+        site = _site(req.site)
+        if not req.targets:
+            raise HTTPException(422, "add at least one target")
+        if not 7 <= req.days <= 730:
+            raise HTTPException(422, "period must be 7–730 days")
+        if req.limit_kind == "airmass" and not 1 < req.limit <= 10:
+            raise HTTPException(422, "airmass limit must be between 1 and 10")
+        if req.limit_kind == "altitude" and not 0 <= req.limit < 90:
+            raise HTTPException(422, "altitude limit must be between 0 and 90 degrees")
+        if req.twilight not in ("nautical", "astronomical", "civil"):
+            raise HTTPException(422, "twilight must be nautical or astronomical")
+        start = date.fromisoformat(req.start) if req.start else tu.night_of(Time.now(), site.tz).replace(day=1)
+        targets = [t.to_target() for t in req.targets]
+        if any(t.is_body for t in targets):
+            raise HTTPException(422, "best-time analysis needs fixed targets (remove planets / the Moon)")
+        return clean(best_time(site, targets, start, req.days, req.limit, req.limit_kind, req.twilight,
+                               req.moon if req.moon in ("dark", "grey", "bright") else "custom",
+                               req.max_illum if req.moon == "custom" else None, req.min_sep, req.airmass_model))
 
     @app.post("/api/sky")
     def sky(req: SkyReq):

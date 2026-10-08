@@ -8,6 +8,7 @@ import { NowView } from "./components/now.js";
 import { SkyView } from "./components/sky.js";
 import { PlanetsView } from "./components/planets.js";
 import { NightView } from "./components/night.js";
+import { SeasonView } from "./components/season.js";
 import { Dialogs } from "./components/dialogs.js";
 
 const VIEWS = [
@@ -274,7 +275,8 @@ function App() {
             ${state.view === "sky" && html`<${SkyView} sky=${sky} loading=${busy.sky}/>`}
             ${state.view === "planets" && html`<${PlanetsView}/>`}
             ${state.view === "night" && html`<${NightView}/>`}
-            ${["season", "tools"].includes(state.view) && html`<div class="placeholder">${VIEWS.find((v) => v[0] === state.view)[1]} view — coming in a later stage.</div>`}
+            ${state.view === "season" && html`<${SeasonView}/>`}
+            ${["tools"].includes(state.view) && html`<div class="placeholder">${VIEWS.find((v) => v[0] === state.view)[1]} view — coming in a later stage.</div>`}
           </div>
         </main>
       </div>
