@@ -2,6 +2,7 @@ import { html, useContext, useState, useEffect, useRef } from "../lib.js";
 import { Store } from "../store.js";
 import { api } from "../api.js";
 import { fix } from "../format.js";
+import { ImportDialog } from "./importer.js";
 
 export function Dialogs() {
   const { state, dispatch } = useContext(Store);
@@ -14,10 +15,10 @@ export function Dialogs() {
   }, [d]);
   if (!d) return null;
   const close = () => dispatch({ type: "dialog", dialog: null });
-  const body = { help: HelpDialog, site: SiteDialog, settings: SettingsDialog }[d.kind];
+  const body = { help: HelpDialog, site: SiteDialog, settings: SettingsDialog, import: ImportDialog }[d.kind];
   if (!body) return null;
   return html`<div class="scrim" onPointerDown=${(e) => e.target === e.currentTarget && close()}>
-    <div class="dialog" role="dialog" aria-modal="true"><${body} close=${close} ...${d}/></div>
+    <div class="dialog" role="dialog" aria-modal="true" style=${d.kind === "import" ? "width:auto;max-width:96vw" : ""}><${body} close=${close} ...${d}/></div>
   </div>`;
 }
 

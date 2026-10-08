@@ -31,6 +31,7 @@ export const initialState = () => ({
   live: true,
   step: load("step", "1 h"),
   targets: load("targets", []),
+  listName: load("listName", ""),
   selectedId: load("selectedId", null),
   view: load("view", "now"),
   theme: document.documentElement.dataset.theme || "dark",
@@ -76,6 +77,22 @@ export function reducer(state, action) {
     }
     case "clearTargets":
       return { ...state, targets: [], selectedId: null };
+    case "replaceTargets": {
+      const targets = [];
+      for (const t of action.targets) {
+        const nt = { visible: true, ...t, id: t.id || newId() };
+        nt.slot = t.slot != null && t.slot < SERIES && !targets.some((x) => x.slot === t.slot) ? t.slot : freeSlot(targets);
+        targets.push(nt);
+      }
+      return { ...state, targets, selectedId: targets[0]?.id ?? null, listName: action.listName ?? state.listName };
+    }
+    case "listName":
+      return { ...state, listName: action.name };
+    case "sortTargets": {
+      const key = action.by === "ra" ? (t) => (t.body ? 999 : t.ra) : (t) => t.name.toLowerCase();
+      const targets = [...state.targets].sort((a, b) => (key(a) < key(b) ? -1 : key(a) > key(b) ? 1 : 0));
+      return { ...state, targets };
+    }
     case "select":
       return { ...state, selectedId: action.id };
     case "hover":

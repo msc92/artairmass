@@ -80,3 +80,19 @@ def test_user_site_roundtrip(client):
 def test_static_ui(client):
     assert "artairmass" in client.get("/").text
     assert client.get("/vendor/plotly.min.js").status_code == 200
+
+
+def test_parse_lists_export(client):
+    r = client.post("/api/parse", json={"text": "name,ra,dec\nA1795,13:48:52.5,+26:35:34\nNGC 1275,,\n"}).json()
+    assert r["counts"] == {"comment": 1, "ok": 1, "resolve": 1}
+    tg = [{"name": "A1795", "ra": 207.21875, "dec": 26.59278}]
+    assert client.put("/api/lists/run 2026B", json={"targets": tg}).json()["count"] == 1
+    assert any(x["name"] == "run 2026B" for x in client.get("/api/lists").json())
+    assert client.get("/api/lists/run 2026B").json()["targets"][0]["name"] == "A1795"
+    assert client.get("/api/settings").json()["last_list"] == "run 2026B"
+    csv = client.post("/api/export", json={"targets": tg, "format": "csv"}).json()["text"]
+    assert csv.splitlines()[1].startswith("A1795,207.218750,26.592780,13:48:52.50")
+    jsk = client.post("/api/export", json={"targets": tg, "format": "jskycalc"}).json()["text"]
+    assert "A1795" in jsk and "13 48 52.50" in jsk
+    client.delete("/api/lists/run 2026B")
+    assert client.get("/api/lists/run 2026B").status_code == 404

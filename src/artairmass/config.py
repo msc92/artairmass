@@ -79,3 +79,49 @@ def load_user_sites() -> list[dict]:
 
 def save_user_sites(sites: list[dict]) -> None:
     _write("sites.json", sites)
+
+
+# ----------------------------------------------------------------------------- target lists
+def _list_dir() -> Path:
+    return config_dir() / "lists"
+
+
+def _list_file(name: str) -> Path:
+    import re
+    safe = re.sub(r"[^\w\-. ]+", "_", name).strip(" .") or "list"
+    return _list_dir() / f"{safe}.json"
+
+
+def list_names() -> list[dict]:
+    d = _list_dir()
+    if not d.exists():
+        return []
+    out = []
+    for p in sorted(d.glob("*.json"), key=lambda q: q.stat().st_mtime, reverse=True):
+        try:
+            data = json.loads(p.read_text("utf-8"))
+            out.append({"name": data.get("name", p.stem), "count": len(data.get("targets", [])),
+                        "modified": p.stat().st_mtime})
+        except (OSError, ValueError):
+            continue
+    return out
+
+
+def load_list(name: str) -> dict:
+    return json.loads(_list_file(name).read_text("utf-8"))
+
+
+def save_list(name: str, targets: list[dict]) -> dict:
+    d = _list_dir()
+    d.mkdir(parents=True, exist_ok=True)
+    data = {"name": name, "targets": targets}
+    path = _list_file(name)
+    fd, tmp = tempfile.mkstemp(dir=d, suffix=".tmp")
+    with os.fdopen(fd, "w", encoding="utf-8") as f:
+        json.dump(data, f, indent=1, ensure_ascii=False)
+    os.replace(tmp, path)
+    return {"name": name, "count": len(targets)}
+
+
+def delete_list(name: str) -> None:
+    _list_file(name).unlink(missing_ok=True)

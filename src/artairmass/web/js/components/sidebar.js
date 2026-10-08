@@ -25,11 +25,12 @@ export function Sidebar({ sky }) {
           onKeyDown=${(e) => { if (e.key === "Enter" && shown[0]) actions.select(shown[0].id); if (e.key === "Escape") { setQ(""); e.target.blur(); } }}/>
         <span style="position:absolute;left:9px;top:8px;color:var(--muted);width:16px;height:16px;display:block"><${Icon.search}/></span>
       </div>
+      <${ListBar}/>
       ${adding && html`<${AddTarget} onDone=${() => setAdding(false)}/>`}
     </div>
     <div class="tlist" role="listbox" aria-label="Targets">
       ${state.targets.length === 0 && html`<div class="empty">
-        No targets yet. Add one with <b>+</b>, paste or drop a list with <${Icon.upload}/>, or pick a planet:
+        No targets yet. Add one with <b>+</b>, paste or drop a list with <span class="inline-icon"><${Icon.upload}/></span>, or pick a planet:
         <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:10px">${PLANETS.map((p) => html`<button class="btn" onClick=${() => actions.addBody(p)}>${p}</button>`)}</div>
       </div>`}
       ${shown.map((t) => html`<${TargetItem} t=${t} live=${liveFor(sky, state.targets, t)}/>`)}
@@ -60,6 +61,8 @@ function TargetItem({ t, live }) {
     <div class="am" title=${live ? `alt ${fix(alt, 1)}°, az ${fix(live.az, 0)}° — ${lvl.label}` : ""}>
       ${live == null ? "" : alt > 0 ? html`<span class=${"status " + lvl.level} style="border:0;padding:0">${fix(am, 2)}</span>` : html`<span class="muted">down</span>`}
     </div>
+    <button class="btn ghost icon rm" title="Remove target" aria-label=${`Remove ${t.name}`}
+      onClick=${(e) => { e.stopPropagation(); dispatch({ type: "removeTarget", id: t.id }); }}><${Icon.x}/></button>
   </div>`;
 }
 
@@ -104,4 +107,40 @@ function AddTarget({ onDone }) {
     ${err && html`<div class="status critical" style="white-space:normal">${err}</div>`}
     <div style="display:flex;gap:6px;justify-content:flex-end"><button type="button" class="btn ghost" onClick=${onDone}>Cancel</button><button class="btn primary">Add</button></div>
   </form>`;
+}
+
+function ListBar() {
+  const { state, actions, dispatch } = useContext(Store);
+  const [open, setOpen] = useState(false);
+  const [saved, setSaved] = useState([]);
+  const ref = useRef();
+  useEffect(() => {
+    if (!open) return;
+    api.get("/api/lists").then(setSaved).catch(() => {});
+    const close = (e) => { if (ref.current && !ref.current.contains(e.target)) setOpen(false); };
+    document.addEventListener("pointerdown", close);
+    return () => document.removeEventListener("pointerdown", close);
+  }, [open]);
+  const item = (label, fn, extra = "") => html`<div class="row" onClick=${() => { setOpen(false); fn(); }}><span class="check">${extra}</span><div>${label}</div></div>`;
+  return html`<div class="picker" ref=${ref}>
+    <button class="btn" style="width:100%;justify-content:space-between" onClick=${() => setOpen(!open)} aria-haspopup="menu" aria-expanded=${open}>
+      <span style="overflow:hidden;text-overflow:ellipsis">${state.listName ? html`List: <b>${state.listName}</b>` : html`<span class="muted">Unsaved list</span>`}</span><span class="muted">▾</span></button>
+    ${open && html`<div class="popover" role="menu" style="width:280px">
+      ${saved.length > 0 && html`<div class="muted" style="font-size:.72rem;padding:4px 9px;text-transform:uppercase;letter-spacing:.06em">Saved lists</div>`}
+      ${saved.map((l) => html`<div class=${"row" + (l.name === state.listName ? " active" : "")} onClick=${() => { setOpen(false); actions.loadList(l.name); }}>
+        <span class="check">${l.name === state.listName ? "✓" : ""}</span><div style="flex:1">${l.name}</div><small>${l.count}</small></div>`)}
+      ${saved.length > 0 && html`<hr/>`}
+      ${item("Save as…", () => { const n = prompt("Save this list as:", state.listName || "my targets"); if (n) actions.saveListAs(n.trim()); })}
+      ${item("New empty list", actions.newList)}
+      ${item("Import / paste…", () => dispatch({ type: "dialog", dialog: { kind: "import" } }))}
+      <hr/>
+      ${item("Sort by RA", () => actions.sortTargets("ra"))}
+      ${item("Sort alphabetically", () => actions.sortTargets("name"))}
+      ${item("Export CSV", () => actions.exportList("csv"))}
+      ${item("Export JSkyCalc list", () => actions.exportList("jskycalc"))}
+      <hr/>
+      ${item("Clear targets", () => { if (confirm("Remove all targets from this list?")) dispatch({ type: "clearTargets" }); })}
+      ${state.listName && item(`Delete “${state.listName}”`, () => { if (confirm(`Delete the saved list “${state.listName}”?`)) actions.deleteList(state.listName); })}
+    </div>`}
+  </div>`;
 }

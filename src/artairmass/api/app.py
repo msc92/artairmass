@@ -27,6 +27,8 @@ from ..core.sky import reference_arcs, sky_snapshot
 from ..core.tables import hourly_table, seasonal_table
 from ..core.targets import Target, body_target, to_icrs
 from ..io.coords import CoordError, parse_dec, parse_ra
+from ..io.parser import parse_text, write_jskycalc
+from ..io.resolver import resolve
 
 WEB_DIR = Path(str(resources.files("artairmass").joinpath("web")))
 
@@ -95,6 +97,29 @@ class CoordsReq(BaseModel):
     equinox: str | float | None = "2000"
     ra_unit: str = "auto"
     time: str | float = "now"     # for equinox-of-date input
+
+
+class ParseReq(BaseModel):
+    text: str
+    ra_unit: str = "auto"          # auto | hours | deg  (for bare-decimal RAs)
+    equinox: str = "2000"          # default when a row has none
+    delimiter: str = "auto"
+    header: str = "auto"           # auto | yes | no
+    coord_system: str = "auto"     # auto | equatorial | galactic
+    time: str | float = "now"
+
+
+class ResolveReq(BaseModel):
+    names: list[str]
+
+
+class ListReq(BaseModel):
+    targets: list[dict]
+
+
+class ExportReq(BaseModel):
+    targets: list[TargetIn]
+    format: str = "csv"            # csv | jskycalc
 
 
 class SiteIn(BaseModel):
@@ -250,6 +275,55 @@ def create_app() -> FastAPI:
             raise HTTPException(422, str(err))
         return {"name": req.name, "ra": ira, "dec": idec, "ra_how": ra.how, "dec_how": dec.how,
                 "ambiguous": ra.ambiguous}
+
+    @app.post("/api/parse")
+    def parse(req: ParseReq):
+        if len(req.text) > 5_000_000:
+            raise HTTPException(413, "list too large (5 MB max)")
+        res = parse_text(req.text, req.ra_unit, req.equinox, req.delimiter, req.header,
+                         req.coord_system, when=_time(req.time))
+        return clean(res.to_dict())
+
+    @app.post("/api/resolve")
+    def resolve_names(req: ResolveReq):
+        if len(req.names) > 500:
+            raise HTTPException(413, "at most 500 names per request")
+        return {"results": clean(resolve(req.names))}
+
+    @app.get("/api/lists")
+    def lists():
+        return config.list_names()
+
+    @app.get("/api/lists/{name}")
+    def get_list(name: str):
+        try:
+            return config.load_list(name)
+        except FileNotFoundError:
+            raise HTTPException(404, f"no saved list {name!r}")
+
+    @app.put("/api/lists/{name}")
+    def put_list(name: str, req: ListReq):
+        out = config.save_list(name, req.targets)
+        config.save_settings({"last_list": name})
+        return out
+
+    @app.delete("/api/lists/{name}")
+    def delete_list(name: str):
+        config.delete_list(name)
+        return {"deleted": name}
+
+    @app.post("/api/export")
+    def export(req: ExportReq):
+        ts = [t.model_dump() for t in req.targets if not t.body]
+        if req.format == "jskycalc":
+            return {"filename": "targets.txt", "text": write_jskycalc(ts)}
+        lines = ["name,ra_deg,dec_deg,ra_hms,dec_dms,pm_ra_cosdec,pm_dec,epoch,url,notes"]
+        for t in ts:
+            q = lambda v: '"' + str(v).replace('"', '""') + '"' if any(c in str(v) for c in ',"\n') else str(v)  # noqa: E731
+            lines.append(",".join(q(v) for v in (t["name"], f"{t['ra']:.6f}", f"{t['dec']:.6f}",
+                                                tu.format_hms(t["ra"] / 15, decimals=2), tu.format_hms(t["dec"], True, 1),
+                                                t["pm_ra_cosdec"], t["pm_dec"], t["epoch"], t["url"], t["notes"])))
+        return {"filename": "targets.csv", "text": "\n".join(lines) + "\n"}
 
     @app.post("/api/instant")
     def instant(req: InstantReq):

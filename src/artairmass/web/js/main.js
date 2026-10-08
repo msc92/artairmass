@@ -102,6 +102,41 @@ function App() {
         if (selectKey) { dispatch({ type: "site", key: selectKey }); save("site", selectKey); }
         else if (!sites.find((s) => s.key === S().siteKey)) dispatch({ type: "site", key: sites[0].key });
       },
+      importTargets: (targets, mode, listName) => {
+        if (mode === "replace") dispatch({ type: "replaceTargets", targets, listName: listName || S().listName });
+        else {
+          dispatch({ type: "addTargets", targets });
+          if (listName && listName !== S().listName) dispatch({ type: "listName", name: listName });
+        }
+        toast(`${mode === "replace" ? "Loaded" : "Added"} ${targets.length} target${targets.length === 1 ? "" : "s"}${listName ? ` · list “${listName}”` : ""}`);
+      },
+      loadList: async (name) => {
+        const r = await guard(api.get(`/api/lists/${encodeURIComponent(name)}`));
+        if (r) { dispatch({ type: "replaceTargets", targets: r.targets, listName: r.name }); toast(`Loaded “${r.name}” (${r.targets.length})`); }
+      },
+      saveListAs: async (name) => {
+        if (!name) return;
+        dispatch({ type: "listName", name });
+        const r = await guard(api.put(`/api/lists/${encodeURIComponent(name)}`, { targets: S().targets.map(stripTarget) }));
+        if (r) toast(`Saved “${name}”`);
+      },
+      deleteList: async (name) => {
+        await guard(api.del(`/api/lists/${encodeURIComponent(name)}`));
+        if (S().listName === name) dispatch({ type: "listName", name: "" });
+        toast(`Deleted list “${name}”`);
+      },
+      newList: () => { dispatch({ type: "replaceTargets", targets: [], listName: "" }); },
+      exportList: async (format) => {
+        const r = await guard(api.post("/api/export", { targets: S().targets.map(targetPayload), format }));
+        if (!r) return;
+        const blob = new Blob([r.text], { type: "text/plain" });
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = (S().listName || "targets").replace(/[^\w.-]+/g, "_") + (format === "jskycalc" ? ".txt" : ".csv");
+        a.click();
+        setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+      },
+      sortTargets: (by) => dispatch({ type: "sortTargets", by }),
       anchorJd: () => anchor.current,
       setAnchor: () => { anchor.current = S().jd; },
     };
@@ -129,6 +164,28 @@ function App() {
   useEffect(() => save("targets", state.targets), [state.targets]);
   useEffect(() => save("selectedId", state.selectedId), [state.selectedId]);
   useEffect(() => save("view", state.view), [state.view]);
+  useEffect(() => save("listName", state.listName), [state.listName]);
+  // named lists autosave to the server (debounced)
+  useDebounced(() => {
+    if (!state.listName || !state.siteKey) return;
+    api.put(`/api/lists/${encodeURIComponent(state.listName)}`, { targets: state.targets.map(stripTarget) }).catch(() => {});
+  }, [state.listName, JSON.stringify(state.targets.map(stripTarget))], 800);
+
+  // drop a file anywhere → import dialog
+  useEffect(() => {
+    const over = (e) => { if (e.dataTransfer?.types?.includes("Files")) e.preventDefault(); };
+    const drop = (e) => {
+      const f = e.dataTransfer?.files?.[0];
+      if (!f || stateRef.current.dialog) return;
+      e.preventDefault();
+      const fr = new FileReader();
+      fr.onload = () => dispatch({ type: "dialog", dialog: { kind: "import", initialText: String(fr.result), fileName: f.name } });
+      fr.readAsText(f);
+    };
+    window.addEventListener("dragover", over);
+    window.addEventListener("drop", drop);
+    return () => { window.removeEventListener("dragover", over); window.removeEventListener("drop", drop); };
+  }, []);
 
   // live clock
   useEffect(() => {
@@ -224,6 +281,9 @@ function App() {
     ${state.toast && html`<div class=${"toast" + (state.toast.error ? " error" : "")} role="status">${state.toast.msg}</div>`}
   </${Store.Provider}>`;
 }
+
+const stripTarget = (t) => ({ name: t.name, ra: t.ra, dec: t.dec, pm_ra_cosdec: t.pm_ra_cosdec || 0, pm_dec: t.pm_dec || 0,
+  epoch: t.epoch || 2000, body: t.body || null, url: t.url || "", notes: t.notes || "", visible: t.visible !== false, slot: t.slot });
 
 function applySettings(s) {
   if (s && s.ui_scale) document.documentElement.style.setProperty("--scale", s.ui_scale);
