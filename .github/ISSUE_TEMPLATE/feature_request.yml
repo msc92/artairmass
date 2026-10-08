@@ -1,0 +1,11 @@
+name: Feature request
+description: An idea that would make observing or proposal planning easier
+labels: [enhancement]
+body:
+  - type: textarea
+    id: need
+    attributes: {label: What are you trying to do?, description: "Describe the observing/planning situation"}
+    validations: {required: true}
+  - type: textarea
+    id: idea
+    attributes: {label: What would help?, description: "Other tools that do it well are useful references"}

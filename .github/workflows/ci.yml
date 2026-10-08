@@ -1,0 +1,43 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  tests:
+    name: tests (${{ matrix.os }}, py${{ matrix.python }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        python: ["3.10", "3.13"]
+        include:
+          - {os: ubuntu-latest, python: "3.12"}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "${{ matrix.python }}", cache: pip}
+      - run: pip install -e ".[dev]"
+      - run: pyflakes src tests scripts
+      - run: pytest -q
+      - name: offline self-test
+        run: artairmass selftest
+        env: {ARTAIRMASS_OFFLINE: "1"}
+
+  ui:
+    name: UI click-through (headless Chromium)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.12", cache: pip}
+      - run: pip install -e ".[dev]"
+      - run: python -m playwright install --with-deps chromium
+      - run: python scripts/uicheck_full.py ui-out
+      - run: python scripts/uicheck_mobile.py ui-out
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: {name: ui-screenshots, path: ui-out}

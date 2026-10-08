@@ -6,14 +6,33 @@ import { raStr, decStr, fix, airmassLevel } from "../format.js";
 
 const PLANETS = ["Moon", "Mercury", "Venus", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune"];
 
+const PHONE = "(max-width: 760px)";
+const isPhone = () => typeof matchMedia !== "undefined" && matchMedia(PHONE).matches;
+
 export function Sidebar({ sky }) {
   const { state, dispatch, actions } = useContext(Store);
   const [q, setQ] = useState("");
   const [adding, setAdding] = useState(false);
+  const [open, setOpen] = useState(() => !isPhone());
+  // on phones the list is a drawer; it closes after picking a target
+  const prevSel = useRef(state.selectedId);
+  useEffect(() => {
+    if (prevSel.current !== state.selectedId && isPhone()) setOpen(false);
+    prevSel.current = state.selectedId;
+  }, [state.selectedId]);
+  const selected = state.targets.find((t) => t.id === state.selectedId);
   const needle = q.trim().toLowerCase();
   const shown = state.targets.filter((t) => !needle || t.name.toLowerCase().includes(needle));
 
-  return html`<aside class="sidebar">
+  const selLive = selected ? liveFor(sky, state.targets, selected) : null;
+  return html`<aside class=${"sidebar" + (open ? " open" : " closed")}>
+    <button class="drawer-bar" onClick=${() => setOpen(!open)} aria-expanded=${open} aria-controls="target-drawer">
+      <span class="chev">${open ? "▾" : "▸"}</span>
+      <span>Targets <b>${state.targets.length}</b></span>
+      ${selected && html`<span class="drawer-sel"><span class="swatch" style=${`background:${seriesColor(selected)}`}></span>${selected.name}
+        <span class="muted">${selLive == null ? "" : selLive.alt > 0 ? `X ${fix(airmass(selLive.alt), 2)}` : "down"}</span></span>`}
+    </button>
+    <div class="drawer-body" id="target-drawer">
     <div class="side-head">
       <h2><span>Targets <span class="muted" style="text-transform:none;letter-spacing:0">${state.targets.length || ""}</span></span>
         <span class="group">
@@ -34,6 +53,7 @@ export function Sidebar({ sky }) {
         <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:10px">${PLANETS.map((p) => html`<button class="btn" onClick=${() => actions.addBody(p)}>${p}</button>`)}</div>
       </div>`}
       ${shown.map((t) => html`<${TargetItem} t=${t} live=${liveFor(sky, state.targets, t)}/>`)}
+    </div>
     </div>
   </aside>`;
 }

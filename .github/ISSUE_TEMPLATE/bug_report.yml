@@ -1,0 +1,17 @@
+name: Bug report
+description: Something doesn't work (crash, wrong layout, broken feature)
+labels: [bug]
+body:
+  - type: textarea
+    id: what
+    attributes: {label: What happened?, description: "What did you do, and what did you expect?"}
+    validations: {required: true}
+  - type: input
+    id: version
+    attributes: {label: artairmass version, description: "Shown in the Help dialog (?)"}
+  - type: input
+    id: env
+    attributes: {label: OS / browser / Python, placeholder: "macOS 15, Chrome 140, Python 3.12"}
+  - type: textarea
+    id: extra
+    attributes: {label: Screenshots, logs, or the target list you used}

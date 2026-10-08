@@ -3,7 +3,7 @@
 import { html, useContext, useState, useEffect, useRef, useMemo } from "../lib.js";
 import { Store, targetPayload, DASHES } from "../store.js";
 import { api } from "../api.js";
-import { fix, hm, nightOf, airmassLevel, addDays, localTime } from "../format.js";
+import { fix, hm, nightOf, airmassLevel, addDays, localTime, utcTime } from "../format.js";
 
 export const css = (v) => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
 const ALT_TICKS = [90, 60, 50, 40, 30, 25, 20, 15, 10];
@@ -121,6 +121,7 @@ function ExportMenu({ onExport }) {
 
 // ------------------------------------------------------------------------- the chart
 function buildFigure(d, targets, prefs, state, opts = {}) {
+  const narrow = typeof window !== "undefined" && window.innerWidth < 760;
   const red = state.theme === "red";
   const ink2 = css("--text-2"), muted = css("--muted"), grid = css("--grid"), surf = css("--surface");
   const x = d.x;
@@ -130,6 +131,13 @@ function buildFigure(d, targets, prefs, state, opts = {}) {
   const n = d.night;
   const names = d.tracks.names;
   const hl = state.hoverId;
+  const tz = state.sites.find((x) => x.key === state.siteKey)?.tz;
+  traces.push({
+    x, y: x.map(() => (prefs.yAxis === "airmass" ? 1.0 : 90)), mode: "lines", showlegend: false, name: "time",
+    line: { width: 0, color: "rgba(0,0,0,0)" },
+    customdata: d.tracks.jd.map((jd, k) => `${tz ? localTime(jd, tz, false) : ""} local · ${utcTime(jd, false)} UT · LST ${hm(d.tracks.last_h[k])}`),
+    hovertemplate: "<b>%{customdata}</b><extra></extra>",
+  });
 
   targets.forEach((t, i) => {
     const idx = d.ids.indexOf(t.id);
@@ -144,8 +152,8 @@ function buildFigure(d, targets, prefs, state, opts = {}) {
       x, y, type: "scatter", mode: "lines", name: `${t.name}${sep != null ? ` · Moon ≥ ${sep.toFixed(0)}°` : ""}`,
       line: { color: col, width: hl === t.id ? 3 : 2, dash: red ? DASHES[i % DASHES.length] : "solid", shape: "spline", smoothing: 0.4 },
       opacity: dim ? 0.25 : 1, meta: t.id,
-      customdata: alt.map((a, k) => [a, d.tracks.ha_h[idx][k], d.tracks.moon_sep[idx][k], hardie(a)]),
-      hovertemplate: `%{customdata[3]:.2f}  ·  %{customdata[0]:.1f}°  ·  HA %{customdata[1]:+.2f}h  ·  Moon %{customdata[2]:.0f}°<extra>${escapeHtml(t.name)}</extra>`,
+      customdata: alt.map((a, k) => [a > 0 ? hardie(a).toFixed(2) : "down", a.toFixed(1), hm(d.tracks.ha_h[idx][k], true), d.tracks.moon_sep[idx][k].toFixed(0)]),
+      hovertemplate: `X %{customdata[0]}  ·  %{customdata[1]}°  ·  HA %{customdata[2]}  ·  Moon %{customdata[3]}°<extra>${escapeHtml(t.name)}</extra>`,
       showlegend: true,
     });
   });
@@ -183,7 +191,7 @@ function buildFigure(d, targets, prefs, state, opts = {}) {
 
   const annotations = [{ xref: "paper", yref: "y", x: 0.005, y: limY, xanchor: "left", yanchor: isAm ? "bottom" : "bottom", text: `limit X = ${prefs.limit}`, showarrow: false, font: { size: 10, color: muted } }];
   // direct labels at the peak for up to four curves (legend carries the rest)
-  if (!opts.compact && targets.length <= 4) {
+  if (!opts.compact && !narrow && targets.length <= 4) {
     targets.forEach((t) => {
       const idx = d.ids.indexOf(t.id);
       if (idx < 0) return;
@@ -197,19 +205,20 @@ function buildFigure(d, targets, prefs, state, opts = {}) {
   }
   // twilight labels along the top edge (evening side)
   const tl = [[n.sunset, "sunset"], [tw.civil.evening, "civil"], [tw.nautical.evening, "naut."], [tw.astronomical.evening, "astro."]];
-  if (!opts.compact) for (const [e, label] of tl) if (e) annotations.push({ xref: "x", yref: "paper", x: (e.jd - n.midnight.jd) * 24, y: 0, yanchor: "bottom", xanchor: "left", xshift: 2, text: label, showarrow: false, textangle: -90, font: { size: 9, color: muted } });
+  if (!opts.compact && !narrow) for (const [e, label] of tl) if (e) annotations.push({ xref: "x", yref: "paper", x: (e.jd - n.midnight.jd) * 24, y: 0, yanchor: "bottom", xanchor: "left", xshift: 2, text: label, showarrow: false, textangle: -90, font: { size: 9, color: muted } });
 
-  const ticks = d.ticks.filter((t, i) => (opts.compact ? i % 2 === 0 : true));
+  const every = opts.compact || narrow ? (narrow && !opts.compact ? 3 : 2) : 1;
+  const ticks = d.ticks.filter((t, i) => i % every === 0);
   const yRange = isAm ? [prefs.yMax, 1.0] : [0, 90];
   const rightVals = isAm ? ALT_TICKS.map(hardie).filter((v) => v <= prefs.yMax) : AM_TICKS.map(altForAirmass);
   const rightText = isAm ? ALT_TICKS.filter((a) => hardie(a) <= prefs.yMax).map((a) => `${a}°`) : AM_TICKS.map((v) => v.toFixed(v < 2 ? 1 : 1));
   const font = { family: css("--font") || "system-ui", size: 11, color: ink2 };
   const layout = {
     paper_bgcolor: surf, plot_bgcolor: surf, font,
-    margin: opts.compact ? { l: 44, r: 40, t: 34, b: 30 } : { l: 56, r: 56, t: 64, b: 46 },
-    height: opts.height || 470,
-    xaxis: { range: [x[0], x[x.length - 1]], tickvals: ticks.map((t) => t.x), ticktext: ticks.map((t) => t.local), showgrid: false, zeroline: false,
-      linecolor: css("--axis"), ticks: "outside", tickcolor: css("--axis"), title: opts.compact ? undefined : { text: `Local time (${zoneText(d.ticks[0]?.zone)})`, font: { size: 11, color: muted } }, fixedrange: true },
+    margin: opts.compact ? { l: 44, r: 40, t: 34, b: 30 } : narrow ? { l: 40, r: 38, t: 56, b: 40 } : { l: 56, r: 56, t: 64, b: 46 },
+    height: opts.height || (narrow ? 400 : 470),
+    xaxis: { unifiedhovertitle: { text: "\u200b" }, range: [x[0], x[x.length - 1]], tickvals: ticks.map((t) => t.x), ticktext: ticks.map((t) => t.local), showgrid: false, zeroline: false,
+      linecolor: css("--axis"), ticks: "outside", tickcolor: css("--axis"), title: opts.compact || narrow ? undefined : { text: `Local time (${zoneText(d.ticks[0]?.zone)})`, font: { size: 11, color: muted } }, fixedrange: true },
     xaxis2: { overlaying: "x", side: "top", range: [x[0], x[x.length - 1]], tickvals: ticks.map((t) => t.x), ticktext: ticks.map((t) => (opts.compact ? t.ut : `${t.ut}<br><span style="color:${muted}">${t.lst}</span>`)), showgrid: false, zeroline: false, ticks: "outside", tickcolor: css("--axis"), fixedrange: true, tickfont: { size: 10, color: ink2 } },
     yaxis: { range: yRange, title: { text: isAm ? "Airmass" : "Altitude (°)", font: { size: 11, color: muted } }, gridcolor: grid, zeroline: false, linecolor: css("--axis"), fixedrange: true, dtick: isAm ? (prefs.yMax > 3 ? 0.5 : 0.25) : 15 },
     yaxis2: { overlaying: "y", side: "right", range: yRange, tickvals: rightVals, ticktext: rightText, showgrid: false, zeroline: false, title: { text: isAm ? "Altitude" : "Airmass", font: { size: 11, color: muted } }, fixedrange: true },
@@ -217,7 +226,7 @@ function buildFigure(d, targets, prefs, state, opts = {}) {
     hovermode: "x unified", hoverlabel: { bgcolor: css("--surface"), bordercolor: css("--border-strong"), font: { color: css("--text"), size: 12 } },
     shapes, annotations,
   };
-  if (!opts.compact) layout.title = { text: "UT / <span style='color:" + muted + "'>LST</span>", x: 0.995, xanchor: "right", y: 0.995, yanchor: "top", font: { size: 10, color: ink2 } };
+  if (!opts.compact) layout.title = { text: "UT / <span style='color:" + muted + "'>LST</span>", x: 0.005, xanchor: "left", y: 0.995, yanchor: "top", font: { size: 10, color: ink2 } };
   return { traces, layout };
 }
 const zoneText = (z) => (z && /^[+-]\d\d$/.test(z) ? `UTC${z[0] === "-" ? "−" : "+"}${+z.slice(1)}` : z || "");
@@ -228,7 +237,7 @@ export function PlotlyChart({ fig, onClickX, onLegend, compact }) {
   useEffect(() => {
     const el = ref.current;
     if (!el || !window.Plotly) return;
-    window.Plotly.react(el, fig.traces, fig.layout, { displaylogo: false, responsive: true, modeBarButtonsToRemove: ["select2d", "lasso2d", "autoScale2d", "zoom2d", "pan2d", "zoomIn2d", "zoomOut2d", "resetScale2d"], toImageButtonOptions: { format: "png", scale: 2, filename: "artairmass" } });
+    window.Plotly.react(el, fig.traces, fig.layout, { displaylogo: false, responsive: true, displayModeBar: window.innerWidth >= 760 ? "hover" : false, modeBarButtonsToRemove: ["select2d", "lasso2d", "autoScale2d", "zoom2d", "pan2d", "zoomIn2d", "zoomOut2d", "resetScale2d"], toImageButtonOptions: { format: "png", scale: 2, filename: "artairmass" } });
     el.removeAllListeners?.("plotly_click");
     el.removeAllListeners?.("plotly_legendclick");
     if (onClickX) el.on("plotly_click", (ev) => { const p = ev.points?.[0]; if (p) onClickX(p.x); });

@@ -16,6 +16,15 @@ const VIEWS = [
   ["now", "Now"], ["night", "Night"], ["season", "Season"], ["sky", "Sky"], ["planets", "Planets"], ["tools", "Tools"],
 ];
 const THEMES = ["dark", "light", "red"];
+const svgI = (d) => html`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" dangerouslySetInnerHTML=${{ __html: d }}></svg>`;
+const TAB_ICONS = {
+  now: svgI('<circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/>'),
+  night: svgI('<path d="M3 19c3-9 15-9 18 0"/><path d="M3 21h18"/>'),
+  season: svgI('<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/>'),
+  sky: svgI('<circle cx="12" cy="12" r="9"/><path d="M12 3v18M3 12h18"/>'),
+  planets: svgI('<circle cx="12" cy="12" r="4"/><ellipse cx="12" cy="12" rx="10" ry="3.5" transform="rotate(-20 12 12)"/>'),
+  tools: svgI('<path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.6 2.6-2.4-.6-.6-2.4z"/>'),
+};
 
 function useDebounced(fn, deps, ms) {
   useEffect(() => {
@@ -260,7 +269,7 @@ function App() {
   const stale = state.status?.iers?.stale;
   return html`<${Store.Provider} value=${ctx}>
     <div class="app">
-      <div>
+      <div class="app-head">
         <${TopBar} instant=${instant}/>
         ${lost && html`<div class="banner warn">Lost contact with the artairmass server — results may be out of date.</div>`}
         ${stale && html`<div class="banner warn">Earth-orientation (IERS) data are ${fix(state.status.iers.age_days, 0)} days old — sidereal time may be off by up to ~1 s. Run <code>artairmass update-data</code> when online.</div>`}
@@ -269,7 +278,8 @@ function App() {
         <${Sidebar} sky=${sky}/>
         <main class="content">
           <nav class="tabs" role="tablist">
-            ${VIEWS.map(([k, label], i) => html`<button class="tab" role="tab" aria-selected=${state.view === k} onClick=${() => dispatch({ type: "view", view: k })}>${label}<kbd>${i + 1}</kbd></button>`)}
+            ${VIEWS.map(([k, label], i) => html`<button class="tab" role="tab" aria-selected=${state.view === k} onClick=${() => dispatch({ type: "view", view: k })}>
+              <span class="tab-icon" aria-hidden="true">${TAB_ICONS[k]}</span><span class="tab-label">${label}</span><kbd>${i + 1}</kbd></button>`)}
           </nav>
           <div class="view">
             ${state.view === "now" && html`<${NowView} instant=${instant} loading=${busy.instant}/>`}

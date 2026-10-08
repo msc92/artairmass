@@ -1,0 +1,22 @@
+name: Accuracy discrepancy
+description: A computed value disagrees with another source
+labels: [accuracy]
+body:
+  - type: markdown
+    attributes: {value: "Thanks! Exact inputs let us reproduce this. Known, expected differences from JSkyCalc are listed in validation/VALIDATION.md."}
+  - type: input
+    id: site
+    attributes: {label: Site, description: "Name, or lat / lon / elevation / time zone"}
+    validations: {required: true}
+  - type: input
+    id: time
+    attributes: {label: Date & time (say whether UT or local)}
+    validations: {required: true}
+  - type: input
+    id: target
+    attributes: {label: Target (name and coordinates with equinox)}
+    validations: {required: true}
+  - type: textarea
+    id: values
+    attributes: {label: "Quantity: artairmass value vs expected value, and where the expected value came from"}
+    validations: {required: true}

@@ -149,11 +149,16 @@ export function SkyView({ sky, loading }) {
   };
 
   return html`<div class="sky-wrap">
-    <div class=${"card plot-card" + (loading ? " loading" : "")} style="padding:8px">
+    <div class=${"card plot-card" + (loading ? " loading" : "")} style="padding:8px;position:relative">
+      <div class="sky-zoom" role="group" aria-label="Zoom">
+        <button class="btn icon" aria-label="Zoom in" onClick=${() => setView((v) => { const w = Math.max(80, v.w / 2); return { x: v.x + (v.w - w) / 2, y: v.y + (v.w - w) / 2, w }; })}>+</button>
+        <button class="btn icon" aria-label="Zoom out" onClick=${() => setView((v) => { const w = Math.min(VB, v.w * 2); return w >= VB ? { x: 0, y: 0, w: VB } : { x: v.x - (w - v.w) / 2, y: v.y - (w - v.w) / 2, w }; })}>−</button>
+        <button class="btn icon" aria-label="Reset view" onClick=${() => setView({ x: 0, y: 0, w: VB })}>⟲</button>
+      </div>
       <svg ref=${svgRef} class="sky-svg" viewBox=${`${view.x} ${view.y} ${view.w} ${view.w}`} tabindex="0"
         role="img" aria-label=${`All-sky chart for ${site.name}`}
         onPointerMove=${onMove} onPointerLeave=${() => { setHover(null); setMouse(null); }}
-        onClick=${(e) => { const [x, y] = toSvg(e); const p = unproject(x, y); if (p.alt > -1) selectAt(p); }}
+        onClick=${(e) => { onMove(e); const [x, y] = toSvg(e); const p = unproject(x, y); if (p.alt > -1) selectAt(p); }}
         onAuxClick=${(e) => { if (e.button === 1) { const [x, y] = toSvg(e); const p = unproject(x, y); actions.setCoordsAtAltAz(p.alt, p.az); } }}
         onKeyDown=${onKey}>
         <defs><clipPath id="horizon"><circle cx=${C} cy=${C} r=${R + 1}/></clipPath></defs>
@@ -200,14 +205,14 @@ export function SkyView({ sky, loading }) {
     </div>
     <div class="sky-legend">
       <div class="card">
-        <h3>Under the cursor</h3>
+        <h3>Under the pointer</h3>
         ${hover ? html`<dl class="kv">
             <dt>Object</dt><dd style="font-family:var(--font)">${hover.name}</dd>
             <dt>Alt, az</dt><dd>${fix(hover.alt, 1)}° ${fix(hover.az, 1)}°</dd>
             <dt>Hour angle</dt><dd>${hms(hover.ha, { signed: true }).slice(0, 6)}</dd>
             <dt>Airmass</dt><dd>${hover.alt > 0 ? fix(1 / Math.sin(hover.alt * D2R), 2) : "—"}</dd></dl>`
           : mouse && mouse.alt > -1 ? html`<dl class="kv"><dt>Alt, az</dt><dd>${fix(mouse.alt, 1)}° ${fix(mouse.az, 1)}°</dd></dl>`
-          : html`<div class="muted">Point at the sky.</div>`}
+          : html`<div class="muted">Point at (or tap) the sky.</div>`}
       </div>
       <div class="card">
         <h3>Controls</h3>

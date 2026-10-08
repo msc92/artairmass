@@ -10,15 +10,18 @@ export function TopBar({ instant }) {
   if (!site) return null;
   return html`<header class="topbar">
     <div class="brand" title="artairmass — a modern JSkyCalc"><${Logo}/><div><b>artairmass</b></div></div>
-    <${SitePicker} site=${site}/>
-    <${NightNav} site=${site}/>
-    <${TimeControls} site=${site}/>
+    <div class="tb-site"><${SitePicker} site=${site}/></div>
+    <div class="tb-night"><${NightNav} site=${site}/></div>
+    <div class="tb-time"><${TimeControls} site=${site}/></div>
     <div class="spacer"></div>
     <${Clocks} site=${site} instant=${instant}/>
-    <${SkyChip} instant=${instant}/>
-    <${ThemeSwitch}/>
-    <button class="btn icon ghost" title="Settings" onClick=${() => dispatch({ type: "dialog", dialog: { kind: "settings" } })}><${Icon.gear}/></button>
-    <button class="btn icon ghost" title="Keyboard shortcuts & help (?)" onClick=${() => dispatch({ type: "dialog", dialog: { kind: "help" } })}><${Icon.help}/></button>
+    <div class="tb-chip"><${SkyChip} instant=${instant}/></div>
+    <div class="tb-theme"><${ThemeSwitch}/></div>
+    <div class="tb-icons">
+      <${ThemeCycle}/>
+      <button class="btn icon ghost" title="Settings" aria-label="Settings" onClick=${() => dispatch({ type: "dialog", dialog: { kind: "settings" } })}><${Icon.gear}/></button>
+      <button class="btn icon ghost" title="Keyboard shortcuts & help (?)" aria-label="Help" onClick=${() => dispatch({ type: "dialog", dialog: { kind: "help" } })}><${Icon.help}/></button>
+    </div>
   </header>`;
 }
 
@@ -151,4 +154,14 @@ function ThemeSwitch() {
       ${k === "dark" ? html`<${Icon.moonIcon}/>` : k === "light" ? html`<${Icon.sun}/>` : html`<${Icon.eye}/>`}
     </button>`)}
   </div>`;
+}
+
+/** Phone-sized theme control: one button cycling dark → light → red. */
+function ThemeCycle() {
+  const { state, actions } = useContext(Store);
+  const order = ["dark", "light", "red"];
+  const next = order[(order.indexOf(state.theme) + 1) % order.length];
+  const icon = state.theme === "dark" ? Icon.moonIcon : state.theme === "light" ? Icon.sun : Icon.eye;
+  return html`<button class="btn icon ghost theme-cycle" title=${`Theme: ${state.theme} (tap for ${next})`} aria-label=${`Theme ${state.theme}; switch to ${next}`}
+    onClick=${() => actions.setTheme(next)}><${icon}/></button>`;
 }

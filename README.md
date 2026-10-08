@@ -1,108 +1,186 @@
+<div align="center">
+
+<img src="src/artairmass/web/img/icon.svg" width="84" alt="artairmass logo: a crescent Moon over an airmass curve">
+
 # artairmass
 
-*A modern, offline-first observation planner — the spiritual successor to John Thorstensen's
-JSkyCalc, built on astropy.* (Say it like "Artemis".)
+**Plan observations without the guesswork.** Airmass plots, nightly almanacs, best time of year
+and an all-sky chart for any observatory. Offline-first, validated against JSkyCalc, and
+pleasant to use at 3 a.m. in red light.
 
-artairmass runs a small local web server and opens in your browser. Everything except
-name look-ups and finder-chart images works with the network unplugged, which is the point:
-it is meant to be trusted at the telescope.
+*(say it like "Artemis")*
 
-![](docs/screenshot-night.png)
+[![CI](https://github.com/msc92/artairmass/actions/workflows/ci.yml/badge.svg)](https://github.com/msc92/artairmass/actions/workflows/ci.yml)
+[![License: BSD-3-Clause](https://img.shields.io/badge/license-BSD--3--Clause-blue.svg)](LICENSE)
+![Python 3.10–3.13](https://img.shields.io/badge/python-3.10%E2%80%933.13-blue.svg)
+[![Validated against JSkyCalc](https://img.shields.io/badge/validated-against%20JSkyCalc-8a63d2.svg)](validation/VALIDATION.md)
 
-## Install
+<img src="docs/img/night.png" alt="The Night view: airmass curves for six galaxy clusters at Las Campanas, with twilight shading, UT and LST on the top axis, altitude on the right, and a per-target summary table" width="100%">
 
-Python ≥ 3.10.
+</div>
+
+## Quick start
 
 ```bash
-git clone <this repo> artairmass && cd artairmass
-python -m venv .venv && source .venv/bin/activate
-pip install -e .            # add [dev] for tests: pip install -e ".[dev]"
-artairmass                  # starts the server and opens your browser
+pipx install git+https://github.com/msc92/artairmass     # or: pip install git+https://github.com/msc92/artairmass
+artairmass                                              # opens in your browser
 ```
 
-Options: `artairmass --app` opens a chromeless app window (Chrome/Edge/Brave/Chromium),
-`--no-browser`, `--port 8765`, `--host 0.0.0.0` (e.g. over an SSH tunnel to a summit machine).
+That's it. No accounts and no cloud. It runs on your laptop (or on a summit machine over SSH),
+and everything except name look-ups and finder-chart images works with the network unplugged.
+
+<details>
+<summary>Other ways to run it</summary>
 
 ```bash
-artairmass selftest         # offline sanity check of the install
-artairmass update-data      # refresh Earth-orientation (IERS) data when you are online
+artairmass --app                     # chromeless app window (Chrome / Edge / Brave / Chromium)
+artairmass --no-browser --port 8765  # just the server, e.g. behind an SSH tunnel
+artairmass selftest                  # offline sanity check
+artairmass update-data               # refresh Earth-orientation (IERS) data while online
 ```
 
-## What it does
+From a clone: `pip install -e .` (add `".[dev]"` for the test tools).
+</details>
 
-| Tab | What you get |
-|---|---|
-| **Now** | Everything in JSkyCalc's main window for the selected target and program time: airmass (hero), alt/az, HA, parallactic angle, LST (apparent & mean), ICRS / mean-of-date / apparent coordinates, galactic & ecliptic, constellation, parallax factors, Sun & sky state, zenith twilight, Moon phase/illumination/position, Moon–target angle, moonlit sky brightness (Krisciunas & Schaefer 1991), JD/MJD, **BJD_TDB**, JSkyCalc's UTC-based BJD, HJD, light time, barycentric RV correction, planet-proximity warnings. Edit RA/Dec/equinox in place. |
-| **Night** | Interactive airmass plot for the visible targets: inverted airmass axis (or altitude) labelled in altitude on the right, local time below and UT + LST above, civil/nautical/astronomical twilight shading, Moon curve, airmass-limit line, Moon separation in the legend, unified hover, click to set the time. Per-target summary (rise/set at the limit, transit + meridian altitude, best altitude in dark, dark hours under the limit, window, min Moon separation), nightly almanac, JSkyCalc hourly table. **Run** mode for multi-night observing runs. Export PNG/PDF/SVG (matplotlib, publication quality; colour or B&W) and CSV. |
-| **Season** | Best time of year: hours per night above your airmass/altitude limit in dark time, with Moon constraints (dark / grey / bright / custom illumination + minimum separation), proposal semesters shaded (A = Feb–Jul, B = Aug–Jan), midnight-transit date, plain-language advice and which semester type to propose for; targets × months heatmap for whole lists; JSkyCalc's seasonal table (each new & full Moon). |
-| **Sky** | All-sky alt-az chart: bright stars (V ≤ 5), planets, Moon drawn with the correct phase and orientation, targets, meridian/equator/hour-angle arcs, airmass circles, sky colour following the Sun, clock. JSkyCalc's keys: click/`s` select, `c` new target at cursor, `h` nearest bright star, `z`/`o`/`p`/`r` zoom & pan, `f`/`b` step time, `w` open URL. |
-| **Planets** | Planet table (RA/Dec/HA/alt/airmass/proximity), click to make one the target. |
-| **Tools** | Slit position-angle planner (refraction-weighted optimum over an exposure, cross-slit factor plot) · coordinate converter (equatorial/galactic/ecliptic, B1950, of date) · finder charts from CDS HiPS (DSS2, 2MASS, Pan-STARRS, DES, SDSS, unWISE) with name, coordinates, scale bar and compass, PNG download or send to a running ds9 · LST ranges for radio/mm arrays · solar-elongation windows for JWST/HST/Chandra (approximate presets). |
+## Why another planner?
 
-**Target lists.** Paste, upload or drag-and-drop almost anything: CSV/TSV/semicolon/pipe/
-whitespace, header rows (columns found by name), JSkyCalc object lists (including mixed
-space/comma lines and URLs), SIMBAD/NED/VizieR exports, IPAC tables, ds9 region files;
-sexagesimal with colons, spaces, letters or ° ′ ″; decimal degrees or hours; per-row equinox
-(J/B); proper motions; galactic l, b; names only (resolved through CDS Sesame and cached).
-A preview shows how every line was read; ambiguities (e.g. a decimal RA ≤ 24 that could be
-hours or degrees) are flagged, never silently guessed, and rows can be fixed inline. Lists
-are saved by name, sortable by RA or name, exportable to CSV or JSkyCalc format.
+[JSkyCalc](validation/VALIDATION.md#method) by John Thorstensen has been many observers' companion
+for two decades: fast, trustworthy, a little cryptic. artairmass keeps everything it does
+(the inventory is in [FEATURES.md](FEATURES.md)) and adds what planning a modern proposal or an
+observing run needs:
 
-**Sites.** 42 built-in observatories (Las Campanas, Cerro Pachón, CTIO, Paranal, La Silla,
-Chajnantor/ALMA, Narrabri/ATCA, MRO/ASKAP, Mauna Kea, Kitt Peak, Mt Hopkins, Palomar, SALT,
-Roque de los Muchachos, …) plus your own, with IANA time zones so daylight saving is right.
+- **Paste any target list.** CSV, TSV, SIMBAD/NED/VizieR exports, IPAC tables, ds9 regions,
+  JSkyCalc lists, names only. You see how each line was read, and it **never guesses silently**.
+- **Airmass plots worth putting in a proposal**, as PNG, PDF or SVG.
+- **Best time of year** in plain language, with proposal semesters and Moon constraints.
+- **One app for optical, radio and space**: twilight-aware nights, LST ranges for ALMA/ATCA,
+  Sun-angle windows for JWST/HST/Chandra.
+- **Built on astropy** and checked number-by-number against JSkyCalc itself.
 
-**Comfort.** Dark, light and **red night-vision** themes (`r`), keyboard-first (`?` lists
-everything: `n` now, `f`/`b` step, `[`/`]` night, `1`–`6` tabs, `j`/`k` targets, `/` filter),
-tooltips that define every quantity and its convention, settings persisted.
+## A tour
 
-## Accuracy & conventions
+### Tonight
+The **Night** view (above) plots every visible target with an inverted airmass axis, labelled in
+altitude on the right. Local time runs along the bottom with UT and LST on top. Twilight is
+shaded, and the Moon's altitude and per-target Moon separation are shown. Hover for a full
+readout, click to move the clock there, and switch to **Run** mode for a multi-night observing
+run. Each target gets a summary: when it crosses your airmass limit, its transit and meridian
+altitude, its best altitude in the dark, how many dark hours it's observable, and how close the
+Moon gets.
 
-* Astrometry, ephemerides (built-in ERFA model) and barycentric corrections come from
-  astropy. A fast interpolating engine handles nights and years; it is tested against
-  astropy's full `AltAz` chain to < 1″.
-* By default altitudes are **geometric** and airmass is **Hardie (1962)** — JSkyCalc's
-  conventions. Young (1994) and sec z are available in Settings.
-* "Dark" defaults to astronomical twilight (Sun below −18°); nautical is selectable.
-* The night of date D runs from local noon on D to local noon on D+1.
-* **Validated against JSkyCalc itself** — JSkyCalc's own classes were run headless over 27
-  site/date cases (both hemispheres, DST changes, near-pole and near-horizon targets) and
-  compared quantity by quantity: see [`validation/VALIDATION.md`](validation/VALIDATION.md).
-  Typical agreement: rise/set and twilight ≤ 6 s; LST ≤ 0.12 s; alt/az 10–30″ (JSkyCalc
-  omits nutation and aberration); BJD ≤ 0.03 s; RV correction ≤ 7 m/s.
+### When should I propose?
+<img src="docs/img/season.png" alt="The Season view: observable hours per night over a year for a list of clusters, with semester A shaded, midnight-transit markers, and plain-language advice" width="100%">
 
-## Offline behaviour
+For each target, artairmass counts the hours it's observable every night of the year (above
+your airmass limit, in dark time, under your Moon constraints). It marks the date the target
+transits at midnight, shades semesters A and B, and says it in words: *"Best late Jul to late
+Oct — peak ≈ 9.4 h/night around 15 Sep. B semesters (Aug–Jan) hold 72% of the hours."* Whole
+lists get a targets × months heatmap. JSkyCalc's classic seasonal table is there too.
 
-* astropy never touches the network on its own. Earth-orientation data come from the
-  newest of the bundled `astropy-iers-data` table or one fetched by `artairmass update-data`.
-  If they are stale you get a banner, not an error (worst case ~1 s in LST).
-* Name resolution and finder-chart images are the only network features; they fail with a
-  clear message, and resolved names are cached in your user cache directory.
+### Getting targets in
+<img src="docs/img/import.png" alt="The import dialog: a messy pasted list with per-line status. OK rows, a row flagged with an out-of-range minutes value, and two names queued for SIMBAD look-up" width="100%">
 
-Your settings, sites and lists live in the platform config directory
-(`~/Library/Application Support/artairmass` on macOS, `~/.config/artairmass` on Linux);
-override with `ARTAIRMASS_CONFIG_DIR` / `ARTAIRMASS_CACHE_DIR`.
+Drop a file anywhere on the window, or paste. Each line gets a status and an explanation.
+Typos can be fixed inline. Bare names are resolved through CDS Sesame (SIMBAD → NED → VizieR)
+and cached. Lists are saved by name and export to CSV or JSkyCalc format.
 
-## Development
+### The sky, right now
+<table><tr>
+<td width="58%"><img src="docs/img/sky.png" alt="All-sky chart with stars, planets, the Moon and targets"></td>
+<td><img src="docs/img/sky-night.gif" alt="Animation of the sky over Las Campanas through the night"></td>
+</tr></table>
+
+A JSkyCalc-style all-sky chart: bright stars coloured by spectral type, planets, the Moon drawn
+with the right phase and orientation, your targets, the meridian, the equator, hour-angle arcs
+and airmass circles. JSkyCalc's keyboard commands work: click or `s` to select, `c` for a new
+target at the cursor, `h` for the nearest bright star, `z`/`o`/`p`/`r` to zoom and pan, `f`/`b`
+to step time.
+
+### Everything about one target, one moment
+<img src="docs/img/now.png" alt="The Now view: airmass hero number, alt/az, hour angle, parallactic angle, LST, coordinates in several systems, Moon and Sun, and barycentric corrections" width="100%">
+
+Airmass, alt/az, hour angle, parallactic angle, LST (apparent and mean), ICRS / mean-of-date /
+apparent / galactic / ecliptic coordinates, the Moon and moonlit-sky brightness (Krisciunas &
+Schaefer 1991), zenith twilight, planet-proximity warnings, and **BJD_TDB, HJD and the barycentric
+RV correction**. Every quantity has a hover definition stating its convention.
+
+### Tools
+<table><tr>
+<td width="50%"><img src="docs/img/finder.png" alt="Finder chart of Abell 1795 from DSS2 with name, coordinates, scale bar and compass"></td>
+<td>
+
+- **Finder charts** from DSS2, 2MASS, Pan-STARRS, DES, SDSS or unWISE, marked up the way every
+  finder should be (name, J2000 coordinates, scale bar, compass). Download as PNG or send to ds9.
+- **Slit position angle**: the refraction-weighted optimum over your exposure.
+- **Coordinate converter**: equatorial ⇄ galactic ⇄ ecliptic, B1950, of date.
+- **Radio**: LST ranges above an elevation limit (ALMA, ATCA, ASKAP, VLA…).
+- **Space**: solar-elongation windows (JWST 85°–135°; HST and Chandra presets marked approximate).
+
+</td></tr></table>
+
+### At the telescope, and on your phone
+<table><tr>
+<td width="56%"><img src="docs/img/night-red.png" alt="Red night-vision mode: everything red on black; curves told apart by dash patterns"></td>
+<td width="22%"><img src="docs/img/phone-night.png" alt="Night view on a phone"></td>
+<td width="22%"><img src="docs/img/phone-sky.png" alt="Sky view on a phone"></td>
+</tr></table>
+
+Press `r` for **red night-vision mode**: pure red on black, with curves told apart by dash
+pattern, never by hue. It's keyboard-first (`?` lists every shortcut), and the layout adapts to
+phones and tablets (a target drawer, a bottom tab bar, touch zoom on the sky chart).
+Light and dark themes are there for the daytime.
+
+## Can I trust the numbers?
+
+JSkyCalc's own compiled classes were run headlessly over **27 site/date cases × 12 targets**:
+both hemispheres, every 2026 DST change, solstices, near-pole and 3°-above-the-horizon targets.
+Each quantity was compared with artairmass. Highlights (full table and explanations in
+**[validation/VALIDATION.md](validation/VALIDATION.md)**):
+
+| Quantity | Agreement with JSkyCalc | Why any difference |
+|---|---|---|
+| Sunset / sunrise / twilights / moonrise | ≤ 6 s | numerical root-finding vs analytic iteration |
+| Sidereal time | ≤ 0.12 s | JSkyCalc ignores UT1−UTC |
+| Altitude, azimuth, hour angle | 10–30″ | JSkyCalc omits nutation and aberration |
+| Airmass (Hardie), sky brightness, zenith twilight | identical (10⁻¹²) given the same inputs | same formulae |
+| Barycentric JD / RV correction | ≤ 0.03 s / ≤ 7 m/s | JSkyCalc's low-order barycentre model |
+| Seasonal table | identical dates; ≤ 0.07 h | sampled vs analytic |
+
+Independently, the fast plotting engine is tested against astropy's full `AltAz` chain to < 1″,
+and the almanac against astroplan. **168 automated tests** plus a headless-browser click-through
+of every feature run in CI.
+
+**Conventions** (changeable in Settings): geometric altitude and Hardie airmass, as in JSkyCalc;
+"dark" means the Sun is below −18°; the night of date D runs from local noon on D to local noon
+on D+1. Time zones come from the IANA database, so DST is always right.
+
+## Sites
+
+42 observatories are built in: Las Campanas, Cerro Pachón, CTIO, Paranal, Armazones, La Silla,
+Chajnantor (ALMA), Narrabri (ATCA), Parkes, Siding Spring, MRO (ASKAP/MWA), Sutherland (SALT),
+MeerKAT, Mauna Kea, Haleakalā, Kitt Peak, Mt Hopkins, Mt Graham, Lowell, Palomar, Lick, McDonald,
+Apache Point, VLA, Green Bank, Roque de los Muchachos, Teide, Calar Alto, IRAM, NOEMA, Hanle, and
+more. Add your own in the site menu. Missing a big one? [Open a PR](CONTRIBUTING.md).
+
+## Contributing
+
+Bug reports from real observing runs are gold, especially **"this number looks wrong"**: there's
+an issue template for exactly that. New sites, list formats the parser doesn't know yet, UI
+polish and new tools are all welcome. See **[CONTRIBUTING.md](CONTRIBUTING.md)** for setup, the
+checks to run, and the few ground rules: accuracy first, offline first, never guess silently.
 
 ```bash
+git clone https://github.com/msc92/artairmass && cd artairmass
 pip install -e ".[dev]" && python -m playwright install chromium
-pytest                                   # 168 tests incl. JSkyCalc comparison
-python scripts/uicheck_full.py out/      # click through every feature (15 scenarios)
-python scripts/uicheck.py out/           # drive the real UI headless, screenshots + console errors
-python scripts/uicheck_import.py out/    # list import flow
-python scripts/uicheck_tools.py out/     # tools tab
-validation/run_jskycalc.sh               # regenerate JSkyCalc reference values (needs Java 8 jjs + the jar)
+pytest && python scripts/uicheck_full.py /tmp/ui
 ```
 
-Layout: `src/artairmass/core` (astronomy), `io` (parser, resolver), `api` (FastAPI),
-`plots` (matplotlib), `web` (Preact + htm + Plotly, vendored — no build step).
-`FEATURES.md` is the JSkyCalc feature inventory; `PLAN.md` the architecture.
+## Acknowledgements
 
-## Credits
+artairmass exists because of **JSkyCalc** by John Thorstensen (Dartmouth College), which it
+reimplements and validates against. It is built on [astropy](https://www.astropy.org) and ERFA,
+numpy, scipy, matplotlib and FastAPI; the UI uses Plotly.js, Preact and htm. Star positions come
+from the Yale Bright Star Catalogue (Hoffleit & Warren 1991). Name resolution and finder images
+use CDS services (Sesame, hips2fits). See [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 
-* **JSkyCalc** by John Thorstensen (Dartmouth) — the model for this program. Ported from it:
-  the Krisciunas & Schaefer moonlight and zenith-twilight formulae and the seasonal-table
-  layout. Its classes serve as the validation oracle.
-* astropy, ERFA, numpy, scipy, matplotlib, FastAPI; Plotly.js, Preact, htm.
-* Yale Bright Star Catalogue (Hoffleit & Warren 1991, via CDS); CDS Sesame and hips2fits.
+Released under the [BSD 3-Clause License](LICENSE).

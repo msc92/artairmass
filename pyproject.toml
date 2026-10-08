@@ -8,7 +8,21 @@ version = "0.1.0"
 description = "Offline-first observation planner: airmass, almanac, sky display and observability (a modern JSkyCalc)."
 readme = "README.md"
 requires-python = ">=3.10"
-authors = [{ name = "M. Calzadilla" }]
+license = { text = "BSD-3-Clause" }
+authors = [{ name = "Michael Calzadilla" }]
+keywords = ["astronomy", "observing", "airmass", "observation planning", "jskycalc", "astropy"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: BSD License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Scientific/Engineering :: Astronomy",
+]
 dependencies = [
     "astropy>=6.1",
     "astropy-iers-data",
@@ -22,8 +36,13 @@ dependencies = [
     "matplotlib>=3.7",
 ]
 
+[project.urls]
+Homepage = "https://github.com/msc92/artairmass"
+Issues = "https://github.com/msc92/artairmass/issues"
+Validation = "https://github.com/msc92/artairmass/blob/main/validation/VALIDATION.md"
+
 [project.optional-dependencies]
-dev = ["pytest>=8", "httpx>=0.27", "astroplan>=0.10", "playwright>=1.45", "pyflakes"]
+dev = ["pytest>=8", "httpx>=0.27", "astroplan>=0.10", "playwright>=1.45", "pyflakes", "pillow"]
 
 [project.scripts]
 artairmass = "artairmass.cli:main"
